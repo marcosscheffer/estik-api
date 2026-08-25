@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "users", schema="api")
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

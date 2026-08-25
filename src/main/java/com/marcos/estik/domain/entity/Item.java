@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "items", schema = "api")
+@Table(name = "items")
 @Getter
 @Setter
 public class Item {
@@ -27,5 +27,5 @@ public class Item {
         targetEntity = Storage.class,
         mappedBy = "item"
     )
-    private List<Storage> storages;
+    private List<Storage> storage;
 }

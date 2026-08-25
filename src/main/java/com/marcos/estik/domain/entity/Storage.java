@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "storages", schema = "api")
+@Table(name = "storages")
 @Getter
 @Setter
 public class Storage {
