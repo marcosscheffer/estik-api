@@ -1,31 +1,28 @@
 package com.marcos.estik.domain.entity;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "items", schema = "api")
+@Table(name = "storages", schema = "api")
 @Getter
 @Setter
-public class Item {
+public class Storage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String code;
-    private String description;
-    
-    @OneToMany(
-        targetEntity = Storage.class,
-        mappedBy = "item"
+
+    @ManyToOne(
+        targetEntity = Item.class
     )
-    private List<Storage> storages;
+    private Item item;
+
+    private String code;
+    private Integer quantity;
 }
