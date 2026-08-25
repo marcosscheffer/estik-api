@@ -4,9 +4,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.marcos.estik.repository.ItemRepository;
-
+import com.marcos.estik.domain.dto.ItemRequestDTO;
 import com.marcos.estik.domain.dto.ItemResponseDTO;
+import com.marcos.estik.domain.entity.Item;
+import com.marcos.estik.repository.ItemRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,5 +25,18 @@ public class ItemService {
                 item.getDescription(),
                 item.getCode())
             );
+    }
+
+    public ItemResponseDTO createItem(ItemRequestDTO dto) {
+        Item item = new Item(dto);
+
+        itemRepository.save(item);
+
+        return new ItemResponseDTO(
+            item.getId(), 
+            item.getName(), 
+            item.getDescription(),
+            item.getCode()
+        );
     }
 }
