@@ -9,6 +9,7 @@ import com.marcos.estik.domain.dto.ItemResponseDTO;
 import com.marcos.estik.domain.entity.Item;
 import com.marcos.estik.repository.ItemRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -27,11 +28,44 @@ public class ItemService {
             );
     }
 
+    public ItemResponseDTO getItemById(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(
+            () -> new EntityNotFoundException("Item not found with id: " + id)
+        );
+        return new ItemResponseDTO(
+            item.getId(),
+            item.getName(),
+            item.getDescription(),
+            item.getCode()
+        );
+    }
+
+
     public ItemResponseDTO createItem(ItemRequestDTO dto) {
         Item item = new Item(dto);
 
         itemRepository.save(item);
 
+        return new ItemResponseDTO(
+            item.getId(), 
+            item.getName(), 
+            item.getDescription(),
+            item.getCode()
+        );
+    }
+
+    public void deleteItem(Long id) {
+        itemRepository.deleteById(id);
+    }
+
+    public ItemResponseDTO updateItem(Long id, ItemRequestDTO dto) {
+        Item item = itemRepository.findById(id).orElseThrow(
+            () -> new EntityNotFoundException("Item not found with id: " + id)
+        );
+        item.setName(dto.name());
+        item.setDescription(dto.description());
+        item.setCode(dto.code());
+        itemRepository.save(item);
         return new ItemResponseDTO(
             item.getId(), 
             item.getName(), 

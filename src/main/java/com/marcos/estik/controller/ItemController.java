@@ -5,16 +5,19 @@ import java.net.URI;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.marcos.estik.domain.dto.ItemResponseDTO;
 import com.marcos.estik.domain.dto.ItemRequestDTO;
+import com.marcos.estik.domain.dto.ItemResponseDTO;
 import com.marcos.estik.service.ItemService;
 
 import jakarta.validation.Valid;
@@ -34,6 +37,12 @@ public class ItemController {
         return ResponseEntity.ok(itemService.getItems(pageable, q));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ItemResponseDTO> getItemById(@PathVariable("id") Long id) {
+        ItemResponseDTO item = itemService.getItemById(id);
+        return ResponseEntity.ok(item);
+    }
+
     @PostMapping
     public ResponseEntity<ItemResponseDTO> createItem(
         @RequestBody @Valid ItemRequestDTO dto,
@@ -48,4 +57,20 @@ public class ItemController {
 
         return ResponseEntity.created(uri).body(item);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteItem(@PathVariable("id") Long id) {
+        itemService.deleteItem(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ItemResponseDTO> updateItem(
+        @PathVariable("id") Long id,
+        @RequestBody @Valid ItemRequestDTO dto
+    ) {
+        ItemResponseDTO item = itemService.updateItem(id, dto);
+        return ResponseEntity.ok(item);
+    }
+
 }
