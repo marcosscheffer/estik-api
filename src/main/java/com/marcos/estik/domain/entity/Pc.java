@@ -8,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,4 +28,7 @@ public class Pc {
     @Enumerated(EnumType.STRING)
     private StorageEnum storageType;
     private Integer storageCapacity;
+
+    @ManyToOne
+    private Facility facility;
 }
