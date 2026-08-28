@@ -5,6 +5,7 @@ import com.marcos.estik.domain.enums.StorageEnum;
 public record PcResponseDTO(
     Long id,
     String name,
+    UserSummaryDTO assembler,
     String processor,
     String memory,
     StorageEnum StorageType,
