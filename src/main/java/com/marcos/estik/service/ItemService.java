@@ -69,6 +69,7 @@ public class ItemService {
         item.setName(dto.name());
         item.setDescription(dto.description());
         item.setCode(dto.code());
+        item.setQuantity(dto.quantity());
         itemRepository.save(item);
         return new ItemResponseDTO(
             item.getId(), 
