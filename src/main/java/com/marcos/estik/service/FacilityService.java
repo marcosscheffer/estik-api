@@ -1,11 +1,60 @@
 package com.marcos.estik.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.marcos.estik.domain.dto.FacilityRequestDTO;
+import com.marcos.estik.domain.dto.FacilityResponseDTO;
+import com.marcos.estik.domain.dto.PcSummaryResponseDTO;
+import com.marcos.estik.domain.dto.UserSummaryDTO;
+import com.marcos.estik.domain.entity.Facility;
+import com.marcos.estik.repository.FacilityRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class FacilityService {
-    
+    private final FacilityRepository facilityRepository;
+
+    private FacilityResponseDTO toDto(Facility facility) {
+        List<PcSummaryResponseDTO> pcs = (facility.getPcs() != null) ? 
+            facility.getPcs().stream()
+                .map(pc -> new PcSummaryResponseDTO(
+                        pc.getId(),
+                        pc.getName(),
+                        new UserSummaryDTO(
+                            pc.getAssembler().getId(), 
+                            pc.getAssembler().getUsername()
+                        ),
+                        pc.getProcessor(),
+                        pc.getMemory(),
+                        pc.getStorageType(),
+                        pc.getStorageCapacity()
+                    )
+                ).toList() :
+                List.of();
+        return new FacilityResponseDTO(
+            facility.getId(),
+            facility.getName(),
+            facility.getCode(),
+            pcs
+        );
+    }
+
+    public FacilityResponseDTO createFacility(FacilityRequestDTO dto) {
+        Facility facility = new Facility(dto);
+        facilityRepository.save(facility);
+        return toDto(facility);
+    }
+
+    public FacilityResponseDTO getFacility(Long id) {
+        Facility facility = facilityRepository.findById(id).orElseThrow(
+            () -> new EntityNotFoundException("Facility not found")
+        );
+
+        return toDto(facility);
+    }
 }

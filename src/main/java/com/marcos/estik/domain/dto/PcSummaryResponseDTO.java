@@ -1,0 +1,15 @@
+package com.marcos.estik.domain.dto;
+
+import com.marcos.estik.domain.enums.StorageEnum;
+
+public record PcSummaryResponseDTO(
+    Long id,
+    String name,
+    UserSummaryDTO assembler,
+    String processor,
+    String memory,
+    StorageEnum StorageType,
+    Integer storageCapacity
+) {
+    
+}

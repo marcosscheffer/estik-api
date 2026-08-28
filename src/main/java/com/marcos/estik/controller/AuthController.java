@@ -31,7 +31,7 @@ public class AuthController {
         Authentication auth = this.authenticationManager.authenticate(user);
         User userLogged = (User) auth.getPrincipal();
 
-        AuthResponseDTO response = new AuthResponseDTO(this.tokenService.generateToken(userLogged.getId()));
+        AuthResponseDTO response = new AuthResponseDTO(this.tokenService.generateToken(userLogged.getUsername(), userLogged.getId()));
         return ResponseEntity.ok(response);
     }
 }
