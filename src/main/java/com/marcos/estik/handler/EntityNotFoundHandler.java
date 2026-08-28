@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.marcos.estik.domain.dto.ApiErrorDTO;
+import com.marcos.estik.domain.dto.common.ApiErrorDTO;
 
 import jakarta.persistence.EntityNotFoundException;
 

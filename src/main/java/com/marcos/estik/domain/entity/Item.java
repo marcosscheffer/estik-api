@@ -1,14 +1,11 @@
 package com.marcos.estik.domain.entity;
 
-import java.util.List;
-
 import com.marcos.estik.domain.dto.ItemRequestDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,16 +23,12 @@ public class Item {
     private String name;
     private String code;
     private String description;
-    
-    @OneToMany(
-        targetEntity = Storage.class,
-        mappedBy = "item"
-    )
-    private List<Storage> storage;
+    private Integer quantity;
 
     public Item(ItemRequestDTO dto) {
         this.name = dto.name();
         this.code = dto.code();
         this.description = dto.description();
+        this.quantity = dto.quantity();
     }
 }

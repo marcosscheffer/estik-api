@@ -5,7 +5,8 @@ public record ItemResponseDTO(
     Long id,
     String name,
     String description,
-    String code
+    String code,
+    Integer quantity
 ) {
 
 }

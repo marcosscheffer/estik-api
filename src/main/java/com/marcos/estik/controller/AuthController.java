@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.marcos.estik.domain.dto.AuthResponseDTO;
-import com.marcos.estik.domain.dto.LoginDTO;
+import com.marcos.estik.domain.dto.common.AuthResponseDTO;
+import com.marcos.estik.domain.dto.common.LoginDTO;
 import com.marcos.estik.domain.entity.User;
 import com.marcos.estik.service.TokenService;
 

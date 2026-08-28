@@ -8,7 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.marcos.estik.domain.dto.ValidationErrorDTO;
+import com.marcos.estik.domain.dto.common.ValidationErrorDTO;
 
 @RestControllerAdvice
 public class MethodArgumentNotValidHandler {

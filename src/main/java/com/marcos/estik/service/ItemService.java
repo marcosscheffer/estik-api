@@ -24,8 +24,10 @@ public class ItemService {
                 item.getId(), 
                 item.getName(), 
                 item.getDescription(),
-                item.getCode())
-            );
+                item.getCode(),
+                item.getQuantity()
+            )
+        );
     }
 
     public ItemResponseDTO getItemById(Long id) {
@@ -36,7 +38,8 @@ public class ItemService {
             item.getId(),
             item.getName(),
             item.getDescription(),
-            item.getCode()
+            item.getCode(),
+            item.getQuantity()
         );
     }
 
@@ -50,7 +53,8 @@ public class ItemService {
             item.getId(), 
             item.getName(), 
             item.getDescription(),
-            item.getCode()
+            item.getCode(),
+            item.getQuantity()
         );
     }
 
@@ -70,7 +74,8 @@ public class ItemService {
             item.getId(), 
             item.getName(), 
             item.getDescription(),
-            item.getCode()
+            item.getCode(),
+            item.getQuantity()
         );
     }
 }
