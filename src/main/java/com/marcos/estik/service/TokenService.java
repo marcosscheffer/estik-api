@@ -24,9 +24,9 @@ public class TokenService {
         return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateToken(String username) {
+    public String generateToken(Long id) {
         return Jwts.builder()
-                .subject(username)
+                .subject(String.valueOf(id))
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey())

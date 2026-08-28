@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 public record PcRequestDTO(
     @NotBlank
     String name,
+    @NotNull
+    Long assembler,
     @NotBlank
     String processor,
     @NotBlank

@@ -5,10 +5,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.marcos.estik.domain.dto.FacilitySummaryResponseDTO;
+import com.marcos.estik.domain.dto.PcRequestDTO;
 import com.marcos.estik.domain.dto.PcResponseDTO;
 import com.marcos.estik.domain.dto.UserSummaryDTO;
+import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.domain.entity.Pc;
+import com.marcos.estik.domain.entity.User;
+import com.marcos.estik.repository.FacilityRepository;
 import com.marcos.estik.repository.PcRepository;
+import com.marcos.estik.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PcService {
     private final PcRepository pcRepository;
+    private final UserRepository userRepository;
+    private final FacilityRepository facilityRepository;
 
     private PcResponseDTO toDTO(Pc pc) {
         return new PcResponseDTO (
@@ -72,6 +79,21 @@ public class PcService {
         Pc pc = pcRepository.findById(id).orElseThrow(
             () -> new EntityNotFoundException("Pc not found"));
 
+        return toDTO(pc);
+    }
+
+    public PcResponseDTO createPc(PcRequestDTO dto, Long userId) {
+        User assembler = userRepository.findById(userId).orElseThrow(
+            () -> new EntityNotFoundException("User not found")
+        );
+
+        Facility facility = facilityRepository.findById(dto.facilityId()).orElseThrow(
+            () -> new EntityNotFoundException("Facility not found")
+        );
+
+        Pc pc = new Pc(dto);
+        pc.setAssembler(assembler);
+        pc.setFacility(facility);
         return toDTO(pc);
     }
 }
