@@ -16,12 +16,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 public class User implements UserDetails{
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,4 +59,5 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
 }
