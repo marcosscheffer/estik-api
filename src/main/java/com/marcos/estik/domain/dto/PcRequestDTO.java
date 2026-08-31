@@ -9,15 +9,13 @@ import jakarta.validation.constraints.NotNull;
 public record PcRequestDTO(
     @NotBlank
     String name,
-    @NotNull
-    Long assembler,
     @NotBlank
     String processor,
     @NotBlank
     String memory,
-    @NotBlank
+    @NotNull
     StorageEnum storageType,
-    @NotBlank
+    @NotNull
     Integer storageCapacity,
     @NotNull
     Long facilityId,

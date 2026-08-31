@@ -18,6 +18,7 @@ import com.marcos.estik.domain.dto.PcRequestDTO;
 import com.marcos.estik.domain.dto.PcResponseDTO;
 import com.marcos.estik.service.PcService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -55,7 +56,7 @@ public class PcController {
     @PostMapping
     public ResponseEntity<PcResponseDTO> createPc(
         UriComponentsBuilder uriBuilder,
-        @RequestBody PcRequestDTO dto
+        @RequestBody @Valid PcRequestDTO dto
         ) {
         PcResponseDTO pc = pcService.createPc(dto);
 

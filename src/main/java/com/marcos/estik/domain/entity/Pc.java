@@ -47,6 +47,7 @@ public class Pc {
         memory = dto.memory();
         storageType = dto.storageType();
         storageCapacity = dto.storageCapacity();
+        os = dto.os();
     }
     
 }

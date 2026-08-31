@@ -95,6 +95,7 @@ public class PcService {
         Pc pc = new Pc(dto);
         pc.setAssembler(assembler);
         pc.setFacility(facility);
+        pcRepository.save(pc);
         return toDto(pc);
     }
 }
