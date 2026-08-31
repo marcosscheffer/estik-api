@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.marcos.estik.domain.dto.FacilityRequestDTO;
-import com.marcos.estik.domain.dto.FacilityResponseDTO;
+import com.marcos.estik.domain.dto.facility.FacilityRequestDTO;
+import com.marcos.estik.domain.dto.facility.FacilityResponseDTO;
 import com.marcos.estik.service.FacilityService;
 
 import lombok.RequiredArgsConstructor;

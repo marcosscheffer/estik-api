@@ -1,4 +1,4 @@
-package com.marcos.estik.domain.dto;
+package com.marcos.estik.domain.dto.pc;
 
 import com.marcos.estik.domain.enums.OsEnum;
 import com.marcos.estik.domain.enums.StorageEnum;

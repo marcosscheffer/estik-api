@@ -2,7 +2,7 @@ package com.marcos.estik.domain.entity;
 
 import java.util.List;
 
-import com.marcos.estik.domain.dto.FacilityRequestDTO;
+import com.marcos.estik.domain.dto.facility.FacilityRequestDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,6 +1,6 @@
 package com.marcos.estik.domain.entity;
 
-import com.marcos.estik.domain.dto.PcRequestDTO;
+import com.marcos.estik.domain.dto.pc.PcRequestDTO;
 import com.marcos.estik.domain.enums.OsEnum;
 import com.marcos.estik.domain.enums.StorageEnum;
 

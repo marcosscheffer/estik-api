@@ -1,4 +1,4 @@
-package com.marcos.estik.domain.dto;
+package com.marcos.estik.domain.dto.facility;
 
 import jakarta.validation.constraints.NotBlank;
 

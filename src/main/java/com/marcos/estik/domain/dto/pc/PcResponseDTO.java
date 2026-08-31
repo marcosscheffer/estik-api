@@ -1,9 +1,11 @@
-package com.marcos.estik.domain.dto;
+package com.marcos.estik.domain.dto.pc;
 
+import com.marcos.estik.domain.dto.common.UserSummaryDTO;
+import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
 import com.marcos.estik.domain.enums.OsEnum;
 import com.marcos.estik.domain.enums.StorageEnum;
 
-public record PcSummaryResponseDTO(
+public record PcResponseDTO(
     Long id,
     String name,
     UserSummaryDTO assembler,
@@ -11,7 +13,8 @@ public record PcSummaryResponseDTO(
     String memory,
     StorageEnum StorageType,
     Integer storageCapacity,
-    OsEnum os
+    OsEnum os,
+    FacilitySummaryResponseDTO facility
 ) {
     
 }

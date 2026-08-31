@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.marcos.estik.domain.dto.PcRequestDTO;
-import com.marcos.estik.domain.dto.PcResponseDTO;
+import com.marcos.estik.domain.dto.pc.PcRequestDTO;
+import com.marcos.estik.domain.dto.pc.PcResponseDTO;
 import com.marcos.estik.service.PcService;
 
 import jakarta.validation.Valid;

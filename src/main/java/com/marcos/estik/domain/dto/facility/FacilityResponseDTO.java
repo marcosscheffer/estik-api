@@ -1,6 +1,8 @@
-package com.marcos.estik.domain.dto;
+package com.marcos.estik.domain.dto.facility;
 
 import java.util.List;
+
+import com.marcos.estik.domain.dto.pc.PcSummaryResponseDTO;
 
 public record FacilityResponseDTO(
     Long id,
