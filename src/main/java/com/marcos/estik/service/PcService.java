@@ -11,12 +11,9 @@ import com.marcos.estik.domain.dto.pc.PcResponseDTO;
 import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.domain.entity.Pc;
 import com.marcos.estik.domain.entity.User;
-import com.marcos.estik.repository.FacilityRepository;
 import com.marcos.estik.repository.PcRepository;
-import com.marcos.estik.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service

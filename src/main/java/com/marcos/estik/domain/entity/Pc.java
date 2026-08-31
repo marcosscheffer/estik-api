@@ -28,6 +28,7 @@ public class Pc {
     private String name;
     @ManyToOne
     private User assembler;
+    
     private String processor;
     private String memory;
     private Integer storageCapacity;

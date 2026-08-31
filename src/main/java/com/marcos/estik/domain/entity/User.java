@@ -32,8 +32,9 @@ public class User implements UserDetails{
     private String username;
     private String password;
 
-    @OneToMany
+    @OneToMany(mappedBy = "assembler")
     List<Pc> pcsAssembled;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));

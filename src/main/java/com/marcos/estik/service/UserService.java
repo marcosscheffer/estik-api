@@ -1,17 +1,22 @@
 package com.marcos.estik.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.marcos.estik.domain.dto.UserDTO;
 import com.marcos.estik.domain.dto.common.AuthDTO;
 import com.marcos.estik.domain.dto.common.UserSummaryDTO;
+import com.marcos.estik.domain.dto.pc.PcSummaryUserDTO;
 import com.marcos.estik.domain.entity.User;
 import com.marcos.estik.repository.UserRepository;
 
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +36,7 @@ public class UserService {
     }
 
     public UserSummaryDTO createUser(AuthDTO dto) {
-        if (userRepository.ExistsByUsername(dto.username())) {
+        if (userRepository.existsByUsername(dto.username())) {
             throw new EntityExistsException("username already exists");
         }
 
@@ -50,4 +55,22 @@ public class UserService {
         return toDto(user);
     }
 
+    public Page<UserSummaryDTO> getUsers(Pageable pageable) {
+        return userRepository.findAll(pageable)
+            .map(user -> toDto(user));
+    }
+
+    public UserDTO getUser(Long id) {
+        User user = getUserById(id);
+        List<PcSummaryUserDTO> pcs = user.getPcsAssembled()
+            .stream()
+            .map(pc -> new PcSummaryUserDTO(pc.getId(), pc.getName()))
+            .toList();
+
+        return new UserDTO(
+            user.getId(), 
+            user.getUsername(), 
+            pcs
+        );
+    }
 }
