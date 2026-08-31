@@ -2,6 +2,8 @@ package com.marcos.estik.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.marcos.estik.domain.dto.FacilityRequestDTO;
@@ -42,6 +44,11 @@ public class FacilityService {
             facility.getCode(),
             pcs
         );
+    }
+
+    public Page<FacilityResponseDTO> getFacilities(String q, Pageable pageable) {
+        return facilityRepository.findByNameContainingIgnoreCase(q, pageable)
+            .map(facility -> toDto(facility));
     }
 
     public FacilityResponseDTO createFacility(FacilityRequestDTO dto) {

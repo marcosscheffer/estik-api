@@ -82,8 +82,8 @@ public class PcService {
         return toDTO(pc);
     }
 
-    public PcResponseDTO createPc(PcRequestDTO dto, Long userId) {
-        User assembler = userRepository.findById(userId).orElseThrow(
+    public PcResponseDTO createPc(PcRequestDTO dto) {
+        User assembler = userRepository.findById(dto.assemblerId()).orElseThrow(
             () -> new EntityNotFoundException("User not found")
         );
 

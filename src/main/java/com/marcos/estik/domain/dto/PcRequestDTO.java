@@ -19,7 +19,9 @@ public record PcRequestDTO(
     @NotBlank
     Integer storageCapacity,
     @NotNull
-    Long facilityId
+    Long facilityId,
+    @NotNull
+    Long assemblerId
 ) {
     
 }

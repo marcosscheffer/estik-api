@@ -2,12 +2,15 @@ package com.marcos.estik.controller;
 
 import java.net.URI;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -22,6 +25,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FacilityController {
     private final FacilityService facilityService;
+
+    @GetMapping
+    public ResponseEntity<Page<FacilityResponseDTO>> getFacilities(
+        Pageable pageable,
+        @RequestParam(defaultValue = "") String q
+    ) {
+        return ResponseEntity.ok(facilityService.getFacilities(q, pageable));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<FacilityResponseDTO> getFacility(
