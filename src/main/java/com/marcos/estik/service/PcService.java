@@ -37,6 +37,7 @@ public class PcService {
                 pc.getMemory(),
                 pc.getStorageType(),
                 pc.getStorageCapacity(),
+                pc.getOs(),
                 new FacilitySummaryResponseDTO(
                     pc.getFacility().getId(), 
                     pc.getFacility().getName(), 

@@ -1,5 +1,6 @@
 package com.marcos.estik.domain.dto;
 
+import com.marcos.estik.domain.enums.OsEnum;
 import com.marcos.estik.domain.enums.StorageEnum;
 
 import jakarta.validation.constraints.NotBlank;
@@ -21,7 +22,9 @@ public record PcRequestDTO(
     @NotNull
     Long facilityId,
     @NotNull
-    Long assemblerId
+    Long assemblerId,
+    @NotNull
+    OsEnum os
 ) {
     
 }

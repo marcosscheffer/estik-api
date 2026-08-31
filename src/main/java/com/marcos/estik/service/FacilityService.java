@@ -34,7 +34,8 @@ public class FacilityService {
                         pc.getProcessor(),
                         pc.getMemory(),
                         pc.getStorageType(),
-                        pc.getStorageCapacity()
+                        pc.getStorageCapacity(),
+                        pc.getOs()
                     )
                 ).toList() :
                 List.of();

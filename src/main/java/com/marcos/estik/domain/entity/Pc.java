@@ -1,6 +1,7 @@
 package com.marcos.estik.domain.entity;
 
 import com.marcos.estik.domain.dto.PcRequestDTO;
+import com.marcos.estik.domain.enums.OsEnum;
 import com.marcos.estik.domain.enums.StorageEnum;
 
 import jakarta.persistence.Entity;
@@ -29,10 +30,13 @@ public class Pc {
     private User assembler;
     private String processor;
     private String memory;
+    private Integer storageCapacity;
 
     @Enumerated(EnumType.STRING)
     private StorageEnum storageType;
-    private Integer storageCapacity;
+
+    @Enumerated(EnumType.STRING)
+    private OsEnum os;
 
     @ManyToOne
     private Facility facility;

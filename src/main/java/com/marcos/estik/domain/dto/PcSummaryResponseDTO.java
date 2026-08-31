@@ -1,5 +1,6 @@
 package com.marcos.estik.domain.dto;
 
+import com.marcos.estik.domain.enums.OsEnum;
 import com.marcos.estik.domain.enums.StorageEnum;
 
 public record PcSummaryResponseDTO(
@@ -9,7 +10,8 @@ public record PcSummaryResponseDTO(
     String processor,
     String memory,
     StorageEnum StorageType,
-    Integer storageCapacity
+    Integer storageCapacity,
+    OsEnum os
 ) {
     
 }
