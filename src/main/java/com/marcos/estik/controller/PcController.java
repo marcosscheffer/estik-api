@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,5 +67,14 @@ public class PcController {
             .toUri();
 
         return ResponseEntity.created(uri).body(pc);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PcResponseDTO> updatePc(
+        @PathVariable Long id,
+        @RequestBody @Valid PcRequestDTO dto
+    ) {
+        PcResponseDTO pc = pcService.updatePc(id, dto);
+        return ResponseEntity.ok(pc);
     }
 }

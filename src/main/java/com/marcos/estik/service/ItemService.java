@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.marcos.estik.domain.dto.ItemRequestDTO;
-import com.marcos.estik.domain.dto.ItemResponseDTO;
+import com.marcos.estik.domain.dto.item.ItemRequestDTO;
+import com.marcos.estik.domain.dto.item.ItemResponseDTO;
 import com.marcos.estik.domain.entity.Item;
 import com.marcos.estik.repository.ItemRepository;
 

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.marcos.estik.domain.dto.ItemRequestDTO;
-import com.marcos.estik.domain.dto.ItemResponseDTO;
+import com.marcos.estik.domain.dto.item.ItemRequestDTO;
+import com.marcos.estik.domain.dto.item.ItemResponseDTO;
 import com.marcos.estik.service.ItemService;
 
 import jakarta.validation.Valid;

@@ -16,14 +16,15 @@ import com.marcos.estik.repository.PcRepository;
 import com.marcos.estik.repository.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class PcService {
     private final PcRepository pcRepository;
-    private final UserRepository userRepository;
-    private final FacilityRepository facilityRepository;
+    private final FacilityService facilityService;
+    private final UserService userService;
 
     private PcResponseDTO toDto(Pc pc) {
         return new PcResponseDTO (
@@ -84,17 +85,36 @@ public class PcService {
     }
 
     public PcResponseDTO createPc(PcRequestDTO dto) {
-        User assembler = userRepository.findById(dto.assemblerId()).orElseThrow(
-            () -> new EntityNotFoundException("User not found")
-        );
+        User assembler = userService.getUserById(dto.assemblerId());
 
-        Facility facility = facilityRepository.findById(dto.facilityId()).orElseThrow(
-            () -> new EntityNotFoundException("Facility not found")
-        );
+        Facility facility = facilityService.getFacilityById(dto.facilityId());
 
         Pc pc = new Pc(dto);
         pc.setAssembler(assembler);
         pc.setFacility(facility);
+        pcRepository.save(pc);
+        return toDto(pc);
+    }
+
+
+    public PcResponseDTO updatePc(Long id, PcRequestDTO dto) {
+        Pc pc = pcRepository.findById(id)
+            .orElseThrow(
+                () -> new EntityNotFoundException("PC not found")
+            );
+        Facility facility = facilityService.getFacilityById(dto.facilityId());
+        
+        User assembler = userService.getUserById(dto.assemblerId());
+        
+        pc.setName(dto.name());
+        pc.setFacility(facility);
+        pc.setAssembler(assembler);
+        pc.setProcessor(dto.processor());
+        pc.setOs(dto.os());
+        pc.setMemory(dto.memory());
+        pc.setStorageType(dto.storageType());
+        pc.setStorageCapacity(dto.storageCapacity());
+
         pcRepository.save(pc);
         return toDto(pc);
     }

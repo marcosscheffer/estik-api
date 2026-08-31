@@ -1,6 +1,6 @@
 package com.marcos.estik.domain.entity;
 
-import com.marcos.estik.domain.dto.ItemRequestDTO;
+import com.marcos.estik.domain.dto.item.ItemRequestDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

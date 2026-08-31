@@ -1,4 +1,4 @@
-package com.marcos.estik.domain.dto;
+package com.marcos.estik.domain.dto.item;
 
 
 public record ItemResponseDTO(

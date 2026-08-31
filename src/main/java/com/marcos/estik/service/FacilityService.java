@@ -65,4 +65,11 @@ public class FacilityService {
 
         return toDto(facility);
     }
+
+    public Facility getFacilityById(Long id) {
+        return facilityRepository.findById(id)
+            .orElseThrow(
+                () -> new EntityNotFoundException("Facility not found")
+            );
+    }
 }
