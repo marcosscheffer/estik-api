@@ -18,29 +18,26 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public Page<ItemResponseDTO> getItems(Pageable pageable, String q) {
-        return itemRepository.findByNameContainingIgnoreCase(q, pageable)
-            .map(item -> new ItemResponseDTO(
+    private ItemResponseDTO toDto(Item item) {
+        return new ItemResponseDTO(
                 item.getId(), 
                 item.getName(), 
                 item.getDescription(),
                 item.getCode(),
                 item.getQuantity()
-            )
-        );
+            );
+    }
+
+    public Page<ItemResponseDTO> getItems(Pageable pageable, String q) {
+        return itemRepository.findByNameContainingIgnoreCase(q, pageable)
+            .map(item -> toDto(item));
     }
 
     public ItemResponseDTO getItemById(Long id) {
         Item item = itemRepository.findById(id).orElseThrow(
             () -> new EntityNotFoundException("Item not found with id: " + id)
         );
-        return new ItemResponseDTO(
-            item.getId(),
-            item.getName(),
-            item.getDescription(),
-            item.getCode(),
-            item.getQuantity()
-        );
+        return toDto(item);
     }
 
 
@@ -49,13 +46,7 @@ public class ItemService {
 
         itemRepository.save(item);
 
-        return new ItemResponseDTO(
-            item.getId(), 
-            item.getName(), 
-            item.getDescription(),
-            item.getCode(),
-            item.getQuantity()
-        );
+        return toDto(item);
     }
 
     public void deleteItem(Long id) {
@@ -71,12 +62,6 @@ public class ItemService {
         item.setCode(dto.code());
         item.setQuantity(dto.quantity());
         itemRepository.save(item);
-        return new ItemResponseDTO(
-            item.getId(), 
-            item.getName(), 
-            item.getDescription(),
-            item.getCode(),
-            item.getQuantity()
-        );
+        return toDto(item);
     }
 }

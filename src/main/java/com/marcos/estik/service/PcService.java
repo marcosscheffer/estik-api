@@ -25,7 +25,7 @@ public class PcService {
     private final UserRepository userRepository;
     private final FacilityRepository facilityRepository;
 
-    private PcResponseDTO toDTO(Pc pc) {
+    private PcResponseDTO toDto(Pc pc) {
         return new PcResponseDTO (
                 pc.getId(), 
                 pc.getName(),
@@ -48,7 +48,7 @@ public class PcService {
 
     public Page<PcResponseDTO> getPcs(Pageable pageable) {
         Page<PcResponseDTO> pcs = pcRepository.findAll(pageable)
-            .map(pc -> toDTO(pc));
+            .map(pc -> toDto(pc));
 
         return pcs;
     }
@@ -56,21 +56,21 @@ public class PcService {
      public Page<PcResponseDTO> getPcsByAssembler(Pageable pageable, Long assemblerId) {
         System.out.println(assemblerId);
         Page<PcResponseDTO> pcs = pcRepository.findByAssemblerId(assemblerId, pageable)
-            .map(pc -> toDTO(pc));
+            .map(pc -> toDto(pc));
 
         return pcs;
      }
 
      public Page<PcResponseDTO> getPcsByName(Pageable pageable, String q) {
         Page<PcResponseDTO> pcs = pcRepository.findByName(q, pageable)
-            .map(pc -> toDTO(pc));
+            .map(pc -> toDto(pc));
 
         return pcs;
      }
 
      public Page<PcResponseDTO> getPcsByNameAndAssembler(Pageable pageable, String q, Long assemblerId) {
         Page<PcResponseDTO> pcs = pcRepository.findByNameAndAssemblerId(q, assemblerId, pageable)
-            .map(pc -> toDTO(pc));
+            .map(pc -> toDto(pc));
 
         return pcs;
      }
@@ -79,7 +79,7 @@ public class PcService {
         Pc pc = pcRepository.findById(id).orElseThrow(
             () -> new EntityNotFoundException("Pc not found"));
 
-        return toDTO(pc);
+        return toDto(pc);
     }
 
     public PcResponseDTO createPc(PcRequestDTO dto) {
@@ -94,6 +94,6 @@ public class PcService {
         Pc pc = new Pc(dto);
         pc.setAssembler(assembler);
         pc.setFacility(facility);
-        return toDTO(pc);
+        return toDto(pc);
     }
 }
