@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.marcos.estik.domain.dto.common.AuthResponseDTO;
+import com.marcos.estik.domain.dto.user.UserSummaryDTO;
 import com.marcos.estik.domain.dto.common.AuthDTO;
-import com.marcos.estik.domain.dto.common.UserSummaryDTO;
 import com.marcos.estik.domain.entity.User;
 import com.marcos.estik.service.TokenService;
 import com.marcos.estik.service.UserService;

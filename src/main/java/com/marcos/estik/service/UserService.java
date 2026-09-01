@@ -5,10 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.marcos.estik.domain.dto.UserDTO;
 import com.marcos.estik.domain.dto.common.AuthDTO;
-import com.marcos.estik.domain.dto.common.UserSummaryDTO;
 import com.marcos.estik.domain.dto.pc.PcSummaryUserDTO;
+import com.marcos.estik.domain.dto.user.UserDTO;
+import com.marcos.estik.domain.dto.user.UserSummaryDTO;
 import com.marcos.estik.domain.entity.User;
 import com.marcos.estik.repository.UserRepository;
 

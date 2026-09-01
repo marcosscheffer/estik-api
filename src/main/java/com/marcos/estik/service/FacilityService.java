@@ -6,10 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.marcos.estik.domain.dto.common.UserSummaryDTO;
 import com.marcos.estik.domain.dto.facility.FacilityRequestDTO;
 import com.marcos.estik.domain.dto.facility.FacilityResponseDTO;
 import com.marcos.estik.domain.dto.pc.PcSummaryResponseDTO;
+import com.marcos.estik.domain.dto.user.UserSummaryDTO;
 import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.repository.FacilityRepository;
 

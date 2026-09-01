@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.marcos.estik.domain.dto.UserDTO;
-import com.marcos.estik.domain.dto.common.UserSummaryDTO;
+import com.marcos.estik.domain.dto.user.UserDTO;
+import com.marcos.estik.domain.dto.user.UserSummaryDTO;
 import com.marcos.estik.service.UserService;
 
 import lombok.RequiredArgsConstructor;
