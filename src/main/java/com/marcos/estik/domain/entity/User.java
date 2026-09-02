@@ -7,7 +7,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.marcos.estik.domain.enums.RoleEnum;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,9 +39,30 @@ public class User implements UserDetails{
     @OneToMany(mappedBy = "assembler")
     List<Pc> pcsAssembled;
 
+    @OneToMany(mappedBy = "user")
+    List<Ticket> tickets;
+
+    @Enumerated(EnumType.STRING)
+    private RoleEnum role;
+
+    
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+         if (this.role == RoleEnum.SUPER) {
+            return List.of(
+                new SimpleGrantedAuthority("ROLE_SUPER"),
+                new SimpleGrantedAuthority("ROLE_ADMIN"),
+                new SimpleGrantedAuthority("ROLE_USER")
+            );
+        } else if (this.role == RoleEnum.ADMIN) {
+            return List.of(
+                new SimpleGrantedAuthority("ROLE_ADMIN"),
+                new SimpleGrantedAuthority("ROLE_USER")
+            );
+        }
+
+        return List.of(new SimpleGrantedAuthority(this.role.getRole()));
     }
 
     @Override

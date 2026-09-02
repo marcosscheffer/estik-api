@@ -25,7 +25,17 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                 .requestMatchers("/error").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers(
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html"
+                ).permitAll()
+                .requestMatchers(
+                    "/ticket",
+                    "/ticket/**"
+                ).hasRole("USER")
+
+                .anyRequest().hasRole("ADMIN")
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
             .build();

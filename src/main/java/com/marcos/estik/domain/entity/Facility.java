@@ -29,6 +29,9 @@ public class Facility {
     @OneToMany
     private List<Pc> pcs;
 
+    @OneToMany(mappedBy = "facility")
+    private List<Ticket> tickets;
+
     public Facility(FacilityRequestDTO dto) {
         name = dto.name();
         code = dto.code();

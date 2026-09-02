@@ -25,7 +25,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private UserSummaryDTO toDto(User user) {
-        return new UserSummaryDTO(user.getId(), user.getUsername());
+        return new UserSummaryDTO(user.getId(), user.getUsername(), user.getRole());
     }
 
     public User getUserById(Long id) {
@@ -70,6 +70,7 @@ public class UserService {
         return new UserDTO(
             user.getId(), 
             user.getUsername(), 
+            user.getRole(),
             pcs
         );
     }

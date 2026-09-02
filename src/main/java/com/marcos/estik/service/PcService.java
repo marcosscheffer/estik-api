@@ -29,7 +29,8 @@ public class PcService {
                 pc.getName(),
                 new UserSummaryDTO(
                     pc.getAssembler().getId(), 
-                    pc.getAssembler().getUsername()
+                    pc.getAssembler().getUsername(),
+                    pc.getAssembler().getRole()
                 ),
                 pc.getProcessor(),
                 pc.getMemory(),
