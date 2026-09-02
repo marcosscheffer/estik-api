@@ -10,6 +10,7 @@ import com.marcos.estik.domain.dto.pc.PcSummaryUserDTO;
 import com.marcos.estik.domain.dto.user.UserDTO;
 import com.marcos.estik.domain.dto.user.UserSummaryDTO;
 import com.marcos.estik.domain.entity.User;
+import com.marcos.estik.domain.enums.RoleEnum;
 import com.marcos.estik.repository.UserRepository;
 
 import jakarta.persistence.EntityExistsException;
@@ -43,8 +44,16 @@ public class UserService {
         User user = new User();
         user.setUsername(dto.username());
         user.setPassword(passwordEncoder.encode(dto.password()));
+        user.setRole(RoleEnum.USER);
         userRepository.save(user);
 
+        return toDto(user);
+    }
+
+    public UserSummaryDTO updateUserRole(Long id, RoleEnum role) {
+        User user = getUserById(id);
+        user.setRole(role);
+        userRepository.save(user);
         return toDto(user);
     }
 
@@ -74,4 +83,5 @@ public class UserService {
             pcs
         );
     }
+
 }
