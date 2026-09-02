@@ -45,7 +45,6 @@ public class User implements UserDetails{
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
 
-    
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

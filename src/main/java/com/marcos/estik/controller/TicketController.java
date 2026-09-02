@@ -2,8 +2,12 @@ package com.marcos.estik.controller;
 
 import java.net.URI;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +23,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/ticket")
+@RequestMapping("/tickets")
 @RequiredArgsConstructor
 public class TicketController {
     private final TicketService ticketService;
@@ -37,5 +41,25 @@ public class TicketController {
             .toUri();
         
         return ResponseEntity.created(uri).body(ticket);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<TicketResponseDTO>> getTickets(Pageable pageable) {
+        return ResponseEntity.ok(ticketService.getTickets(pageable));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TicketResponseDTO> getTicket(
+        @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(ticketService.getTicket(id));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<Page<TicketResponseDTO>> getMyTickets(
+        @AuthenticationPrincipal User principal,
+        Pageable pageable
+    ) {
+        return ResponseEntity.ok(ticketService.getMyTickets(principal, pageable));
     }
 }

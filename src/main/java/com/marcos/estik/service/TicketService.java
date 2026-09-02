@@ -1,5 +1,7 @@
 package com.marcos.estik.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
@@ -41,6 +43,12 @@ public class TicketService {
         );
     }
 
+    public Ticket getTicketById(Long id) {
+        return ticketRepository.findById(id).orElseThrow(
+            () -> new RuntimeException("Ticket not found")
+        );
+    }
+
     public TicketResponseDTO createTicket(TicketRequestDTO dto, User principal) {
         User  user = userService.getUserById(principal.getId());
         Facility facility = facilityService.getFacilityById(dto.facilityId());
@@ -48,4 +56,18 @@ public class TicketService {
         ticketRepository.save(ticket);
         return toDto(ticket);
     }
+
+    public Page<TicketResponseDTO> getTickets(Pageable pageable) {
+        return ticketRepository.findAll(pageable).map(ticket -> toDto(ticket));
+    }
+
+    public TicketResponseDTO getTicket(Long id) {
+        return toDto(getTicketById(id));
+    }
+
+    public Page<TicketResponseDTO> getMyTickets(User principal, Pageable pageable) {
+        return ticketRepository.findByUserId(principal.getId(), pageable).map(ticket -> toDto(ticket));
+    }
+
+
 }

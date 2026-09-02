@@ -30,12 +30,13 @@ public class SecurityConfig {
                     "/swagger-ui/**",
                     "/swagger-ui.html"
                 ).permitAll()
+                .requestMatchers(HttpMethod.POST, "/tickets").hasRole("USER")   
                 .requestMatchers(
-                    "/ticket",
-                    "/ticket/**"
+                    "/tickets/{id}",
+                    "/tickets/me"
                 ).hasRole("USER")
-
-                .anyRequest().hasRole("ADMIN")
+                .requestMatchers("/auth/register").hasRole("ADMIN")
+                .anyRequest().hasRole("SUPER")
             )
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
