@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.marcos.estik.domain.dto.ticket.TicketRequestDTO;
 import com.marcos.estik.domain.dto.ticket.TicketResponseDTO;
+import com.marcos.estik.domain.dto.ticket.TicketUpdateStatusDTO;
 import com.marcos.estik.domain.entity.User;
 import com.marcos.estik.service.TicketService;
 
@@ -61,5 +63,21 @@ public class TicketController {
         Pageable pageable
     ) {
         return ResponseEntity.ok(ticketService.getMyTickets(principal, pageable));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TicketResponseDTO> updateTicket(
+        @PathVariable Long id,
+        @RequestBody @Valid TicketRequestDTO dto
+    ) {
+        return ResponseEntity.ok(ticketService.updateTicket(id, dto));
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<TicketResponseDTO> updateTicketStatus(
+        @PathVariable Long id,
+        @RequestBody @Valid TicketUpdateStatusDTO dto
+    ) {
+        return ResponseEntity.ok(ticketService.updateTicketStatus(id, dto.status()));
     }
 }
