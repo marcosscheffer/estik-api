@@ -31,6 +31,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
     
@@ -48,7 +49,9 @@ public class Ticket {
     @ManyToOne
     private User user;
     
+    @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
     private String description;
 
     public Ticket(TicketRequestDTO dto, User user, Facility facility) {

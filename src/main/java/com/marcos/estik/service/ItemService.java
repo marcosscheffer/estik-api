@@ -23,7 +23,7 @@ public class ItemService {
                 item.getId(), 
                 item.getName(), 
                 item.getDescription(),
-                item.getCode(),
+                item.getCode(), 
                 item.getQuantity()
             );
     }
