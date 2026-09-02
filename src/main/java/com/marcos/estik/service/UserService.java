@@ -26,7 +26,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     private UserSummaryDTO toDto(User user) {
-        return new UserSummaryDTO(user.getId(), user.getUsername(), user.getRole());
+        return new UserSummaryDTO(user.getId(), user.getUsername(), user.getRole(), user.getActive());
     }
 
     public User getUserById(Long id) {
@@ -83,6 +83,13 @@ public class UserService {
             user.getRole(),
             pcs
         );
+    }
+
+    public UserSummaryDTO updateUserActiveStatus(Long id, Boolean active) {
+        User user = getUserById(id);
+        user.setActive(active);
+        userRepository.save(user);
+        return toDto(user);
     }
 
 }

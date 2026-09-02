@@ -30,7 +30,8 @@ public class FacilityService {
                         new UserSummaryDTO(
                             pc.getAssembler().getId(), 
                             pc.getAssembler().getUsername(),
-                            pc.getAssembler().getRole()
+                            pc.getAssembler().getRole(),
+                            pc.getAssembler().getActive()
                         ),
                         pc.getProcessor(),
                         pc.getMemory(),
@@ -72,5 +73,19 @@ public class FacilityService {
             .orElseThrow(
                 () -> new EntityNotFoundException("Facility not found")
             );
+    }
+
+    public FacilityResponseDTO updateFacility(Long id, FacilityRequestDTO dto) {
+        Facility facility = facilityRepository.findById(id).orElseThrow(
+            () -> new EntityNotFoundException("Facility not found")
+        );
+        facility.setName(dto.name());
+        facility.setCode(dto.code());
+        facilityRepository.save(facility);
+        return toDto(facility);
+    }
+
+    public void deleteFacility(Long id) {
+        facilityRepository.deleteById(id);
     }
 }

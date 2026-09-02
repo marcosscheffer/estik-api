@@ -34,7 +34,8 @@ public class TicketService {
             new UserSummaryDTO(
                 ticket.getUser().getId(),
                 ticket.getUser().getUsername(),
-                ticket.getUser().getRole()
+                ticket.getUser().getRole(),
+                ticket.getUser().getActive()
             ),
             new FacilitySummaryResponseDTO(
                 ticket.getFacility().getId(),
@@ -89,5 +90,9 @@ public class TicketService {
         ticket.setUpdatedAt(LocalDateTime.now());
         ticketRepository.save(ticket);
         return toDto(ticket);
+    }
+
+    public void deleteTicket(Long id) {
+        ticketRepository.deleteById(id);
     }
 }

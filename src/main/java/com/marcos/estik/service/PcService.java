@@ -30,7 +30,8 @@ public class PcService {
                 new UserSummaryDTO(
                     pc.getAssembler().getId(), 
                     pc.getAssembler().getUsername(),
-                    pc.getAssembler().getRole()
+                    pc.getAssembler().getRole(),
+                    pc.getAssembler().getActive()
                 ),
                 pc.getProcessor(),
                 pc.getMemory(),
@@ -115,5 +116,9 @@ public class PcService {
 
         pcRepository.save(pc);
         return toDto(pc);
+    }
+
+    public void deletePc(Long id) {
+        pcRepository.deleteById(id);
     }
 }

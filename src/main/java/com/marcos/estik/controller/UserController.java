@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.marcos.estik.domain.dto.user.UserDTO;
 import com.marcos.estik.domain.dto.user.UserSummaryDTO;
+import com.marcos.estik.domain.dto.user.UserUpdateActiveDTO;
 import com.marcos.estik.domain.dto.user.UserUpdateRoleDTO;
 import com.marcos.estik.service.UserService;
 
@@ -41,5 +42,13 @@ public class UserController {
         @RequestBody UserUpdateRoleDTO dto
     ) {
         return ResponseEntity.ok(userService.updateUserRole(id, dto.role()));
+    }
+
+    @PutMapping("/{id}/active")
+    public ResponseEntity<UserSummaryDTO> updateUserActiveStatus(
+        @PathVariable Long id,
+        @RequestBody UserUpdateActiveDTO dto
+    ) {
+        return ResponseEntity.ok(userService.updateUserActiveStatus(id, dto.active()));
     }
 }
