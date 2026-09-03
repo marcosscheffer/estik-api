@@ -36,7 +36,8 @@ public class SecurityConfig {
                     "/swagger-ui/**",
                     "/swagger-ui.html"
                 ).permitAll()
-                .requestMatchers(HttpMethod.POST, "/tickets").hasRole("USER")   
+                .requestMatchers(HttpMethod.POST, "/tickets").hasRole("USER") 
+                .requestMatchers(HttpMethod.GET, "/facilities").hasRole("USER") 
                 .requestMatchers(
                     "/tickets/{id}",
                     "/tickets/me"
