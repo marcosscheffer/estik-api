@@ -3,6 +3,8 @@ package com.marcos.estik.service;
 import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.marcos.estik.domain.dto.departament.DepartamentRequestDTO;
@@ -56,7 +58,8 @@ public class DepartamentService {
     public DepartamentSummaryDTO toDtoSummary(Departament departament) {
         return new DepartamentSummaryDTO(
             departament.getId(),
-            departament.getName()
+            departament.getName(),
+            facilityService.toDtoSummary(departament.getFacility())
         );
     }
 
@@ -84,5 +87,10 @@ public class DepartamentService {
     public DepartamentResponseDTO getDepartament(Long id) {
         Departament departament = getDepartamentById(id);
         return toDto(departament);
+    }
+
+    public Page<DepartamentSummaryDTO> getDepartaments(Pageable pageable) {
+        return departamentRepository.findAll(pageable)
+            .map(departament -> toDtoSummary(departament));
     }
 }

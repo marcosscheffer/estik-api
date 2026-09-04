@@ -24,9 +24,11 @@ public class FacilityService {
     public FacilityResponseDTO toDto(Facility facility) {
         List<DepartamentSummaryDTO> departaments = (facility.getDepartaments() != null) ? 
             facility.getDepartaments().stream()
+                // Hardcoding to avoid redundancy
                 .map(departament -> new DepartamentSummaryDTO(
                     departament.getId(),
-                    departament.getName()
+                    departament.getName(),
+                    toDtoSummary(departament.getFacility())
                 )).toList() 
                 : List.of();
                 

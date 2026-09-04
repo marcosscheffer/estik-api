@@ -37,7 +37,8 @@ public class PcService {
                 // Hardcoding to avoid redundancy
                 new DepartamentSummaryDTO(
                     pc.getId(),
-                    pc.getName()
+                    pc.getName(),
+                    facilityService.toDtoSummary(pc.getFacility())
                 )
             );
     }
