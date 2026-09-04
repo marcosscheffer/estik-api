@@ -6,10 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.marcos.estik.domain.dto.departament.DepartamentSummaryDTO;
 import com.marcos.estik.domain.dto.facility.FacilityRequestDTO;
 import com.marcos.estik.domain.dto.facility.FacilityResponseDTO;
-import com.marcos.estik.domain.dto.pc.PcSummaryResponseDTO;
-import com.marcos.estik.domain.dto.user.UserSummaryDTO;
+import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
 import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.repository.FacilityRepository;
 
@@ -21,37 +21,38 @@ import lombok.RequiredArgsConstructor;
 public class FacilityService {
     private final FacilityRepository facilityRepository;
 
-    private FacilityResponseDTO toDto(Facility facility) {
-        List<PcSummaryResponseDTO> pcs = (facility.getPcs() != null) ? 
-            facility.getPcs().stream()
-                .map(pc -> new PcSummaryResponseDTO(
-                        pc.getId(),
-                        pc.getName(),
-                        new UserSummaryDTO(
-                            pc.getAssembler().getId(), 
-                            pc.getAssembler().getUsername(),
-                            pc.getAssembler().getRole(),
-                            pc.getAssembler().getActive()
-                        ),
-                        pc.getProcessor(),
-                        pc.getMemory(),
-                        pc.getStorageType(),
-                        pc.getStorageCapacity(),
-                        pc.getOs()
-                    )
-                ).toList() :
-                List.of();
+    public FacilityResponseDTO toDto(Facility facility) {
+        List<DepartamentSummaryDTO> departaments = (facility.getDepartaments() != null) ? 
+            facility.getDepartaments().stream()
+                .map(departament -> new DepartamentSummaryDTO(
+                    departament.getId(),
+                    departament.getName()
+                )).toList() 
+                : List.of();
+                
         return new FacilityResponseDTO(
             facility.getId(),
             facility.getName(),
             facility.getCode(),
-            pcs
+            departaments
         );
     }
 
-    public Page<FacilityResponseDTO> getFacilities(String q, Pageable pageable) {
+    public FacilitySummaryResponseDTO toDtoSummary(Facility facility) {
+        return new FacilitySummaryResponseDTO(
+            facility.getId(), 
+            facility.getName(), 
+            facility.getCode()
+        );
+    }
+
+    public Page<FacilitySummaryResponseDTO> getFacilities(String q, Pageable pageable) {
         return facilityRepository.findByNameContainingIgnoreCase(q, pageable)
-            .map(facility -> toDto(facility));
+            .map(facility -> new FacilitySummaryResponseDTO(
+                facility.getId(),
+                facility.getName(),
+                facility.getCode()
+            ));
     }
 
     public FacilityResponseDTO createFacility(FacilityRequestDTO dto) {

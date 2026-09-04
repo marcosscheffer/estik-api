@@ -18,8 +18,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.marcos.estik.domain.dto.facility.FacilityRequestDTO;
 import com.marcos.estik.domain.dto.facility.FacilityResponseDTO;
+import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
 import com.marcos.estik.service.FacilityService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -29,7 +31,7 @@ public class FacilityController {
     private final FacilityService facilityService;
 
     @GetMapping
-    public ResponseEntity<Page<FacilityResponseDTO>> getFacilities(
+    public ResponseEntity<Page<FacilitySummaryResponseDTO>> getFacilities(
         Pageable pageable,
         @RequestParam(defaultValue = "") String q
     ) {
@@ -45,7 +47,7 @@ public class FacilityController {
 
     @PostMapping
     public ResponseEntity<FacilityResponseDTO> createFacility(
-        @RequestBody FacilityRequestDTO dto,
+        @RequestBody @Valid FacilityRequestDTO dto,
         UriComponentsBuilder uriBuilder
     ) {
         FacilityResponseDTO facility = facilityService.createFacility(dto);

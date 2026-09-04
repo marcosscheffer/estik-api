@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.marcos.estik.domain.dto.item.ItemRequestDTO;
 import com.marcos.estik.domain.dto.item.ItemResponseDTO;
+import com.marcos.estik.domain.dto.item.ItemSummaryResponseDTO;
 import com.marcos.estik.domain.entity.Item;
 import com.marcos.estik.repository.ItemRepository;
 
@@ -26,6 +27,15 @@ public class ItemService {
                 item.getCode(), 
                 item.getQuantity()
             );
+    }
+
+    public ItemSummaryResponseDTO toDtoSummary(Item item) {
+        return new ItemSummaryResponseDTO(
+            item.getId(),
+            item.getName(),
+            item.getDescription(),
+            item.getCode()
+        );
     }
 
     public Page<ItemResponseDTO> getItems(Pageable pageable, String q) {

@@ -28,12 +28,12 @@ public class Facility {
     private String name;
     @Column(nullable = false, unique = true)
     private String code;
-    
-    @OneToMany
-    private List<Pc> pcs;
 
     @OneToMany(mappedBy = "facility")
     private List<Ticket> tickets;
+
+    @OneToMany(mappedBy = "facility")
+    private List<Departament> departaments;
 
     public Facility(FacilityRequestDTO dto) {
         name = dto.name();

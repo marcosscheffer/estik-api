@@ -25,7 +25,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private UserSummaryDTO toDto(User user) {
+    public UserSummaryDTO toDto(User user) {
         return new UserSummaryDTO(user.getId(), user.getUsername(), user.getRole(), user.getActive());
     }
 

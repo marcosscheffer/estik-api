@@ -29,8 +29,8 @@ public class Pc {
     private Long id;
     @Column(nullable = false, unique = true)
     private String name;
-    @JoinColumn(nullable = false)
     @ManyToOne
+    @JoinColumn(nullable = false)
     private User assembler;
 
     @Column(nullable = false)
@@ -40,17 +40,21 @@ public class Pc {
     @Column(nullable = false)
     private Integer storageCapacity;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private StorageEnum storageType;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private OsEnum os;
 
-    @JoinColumn(nullable = false)
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Facility facility;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Departament departament;
 
     public Pc(PcRequestDTO dto) {
         name = dto.name();

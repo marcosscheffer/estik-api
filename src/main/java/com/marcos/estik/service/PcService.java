@@ -4,10 +4,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
+import com.marcos.estik.domain.dto.departament.DepartamentSummaryDTO;
 import com.marcos.estik.domain.dto.pc.PcRequestDTO;
 import com.marcos.estik.domain.dto.pc.PcResponseDTO;
-import com.marcos.estik.domain.dto.user.UserSummaryDTO;
+import com.marcos.estik.domain.dto.pc.PcSummaryResponseDTO;
 import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.domain.entity.Pc;
 import com.marcos.estik.domain.entity.User;
@@ -27,23 +27,31 @@ public class PcService {
         return new PcResponseDTO (
                 pc.getId(), 
                 pc.getName(),
-                new UserSummaryDTO(
-                    pc.getAssembler().getId(), 
-                    pc.getAssembler().getUsername(),
-                    pc.getAssembler().getRole(),
-                    pc.getAssembler().getActive()
-                ),
+                userService.toDto(pc.getAssembler()),
                 pc.getProcessor(),
                 pc.getMemory(),
                 pc.getStorageType(),
                 pc.getStorageCapacity(),
                 pc.getOs(),
-                new FacilitySummaryResponseDTO(
-                    pc.getFacility().getId(), 
-                    pc.getFacility().getName(), 
-                    pc.getFacility().getCode()
+                facilityService.toDtoSummary(pc.getFacility()),
+                // Hardcoding to avoid redundancy
+                new DepartamentSummaryDTO(
+                    pc.getId(),
+                    pc.getName()
                 )
             );
+    }
+    public PcSummaryResponseDTO toDtoSummary(Pc pc) {
+        return new PcSummaryResponseDTO(
+                    pc.getId(),
+                    pc.getName(),
+                    userService.toDto(pc.getAssembler()),
+                    pc.getProcessor(),
+                    pc.getMemory(),
+                    pc.getStorageType(),
+                    pc.getStorageCapacity(),
+                    pc.getOs()
+        );
     }
 
 

@@ -1,5 +1,6 @@
 package com.marcos.estik.domain.dto.pc;
 
+import com.marcos.estik.domain.dto.departament.DepartamentSummaryDTO;
 import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
 import com.marcos.estik.domain.dto.user.UserSummaryDTO;
 import com.marcos.estik.domain.enums.OsEnum;
@@ -14,7 +15,8 @@ public record PcResponseDTO(
     StorageEnum StorageType,
     Integer storageCapacity,
     OsEnum os,
-    FacilitySummaryResponseDTO facility
+    FacilitySummaryResponseDTO facility,
+    DepartamentSummaryDTO departament
 ) {
     
 }

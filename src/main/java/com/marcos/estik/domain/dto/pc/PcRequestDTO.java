@@ -20,6 +20,8 @@ public record PcRequestDTO(
     @NotNull
     Long facilityId,
     @NotNull
+    Long departamentId,
+    @NotNull
     Long assemblerId,
     @NotNull
     OsEnum os
