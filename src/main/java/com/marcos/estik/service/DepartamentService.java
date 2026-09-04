@@ -93,4 +93,17 @@ public class DepartamentService {
         return departamentRepository.findAll(pageable)
             .map(departament -> toDtoSummary(departament));
     }
+
+    public void deleteDepartament(Long id) {
+        departamentRepository.deleteById(id);
+    }
+
+    public DepartamentResponseDTO updateDepartament(Long id, DepartamentRequestDTO dto) {
+        Departament departament = getDepartamentById(id);
+        Facility facility = facilityService.getFacilityById(dto.facilityId());
+        departament.setName(dto.name());
+        departament.setFacility(facility);
+        departamentRepository.save(departament);
+        return toDto(departament);
+    }
 }

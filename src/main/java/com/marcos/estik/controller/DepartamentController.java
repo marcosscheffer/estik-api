@@ -5,9 +5,11 @@ import java.net.URI;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,5 +55,23 @@ public class DepartamentController {
         Pageable pageable
     ) {
         return ResponseEntity.ok(departamentService.getDepartaments(pageable));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDepartament(
+        @PathVariable Long id
+    ) {
+        departamentService.deleteDepartament(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DepartamentResponseDTO> updateDepartament(
+        @PathVariable Long id,
+        @RequestBody @Valid DepartamentRequestDTO dto
+    ) {
+        DepartamentResponseDTO departament = departamentService.updateDepartament(id, dto);
+
+        return ResponseEntity.ok(departament);
     }
 }
