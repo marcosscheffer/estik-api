@@ -21,12 +21,15 @@ import com.marcos.estik.domain.dto.facility.FacilityResponseDTO;
 import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
 import com.marcos.estik.service.FacilityService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/facilities")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class FacilityController {
     private final FacilityService facilityService;
 
@@ -46,6 +49,10 @@ public class FacilityController {
     }
 
     @PostMapping
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<FacilityResponseDTO> createFacility(
         @RequestBody @Valid FacilityRequestDTO dto,
         UriComponentsBuilder uriBuilder
@@ -61,6 +68,10 @@ public class FacilityController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<FacilityResponseDTO> updateFacility(
         @PathVariable Long id,
         @RequestBody FacilityRequestDTO dto
@@ -69,6 +80,10 @@ public class FacilityController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<Void> deleteFacility(
         @PathVariable Long id
     ) {

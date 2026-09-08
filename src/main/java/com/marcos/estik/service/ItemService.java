@@ -57,7 +57,6 @@ public class ItemService {
 
     public ItemResponseDTO createItem(ItemRequestDTO dto) {
         Item item = new Item(dto);
-
         itemRepository.save(item);
 
         return toDto(item);

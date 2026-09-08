@@ -16,15 +16,22 @@ import com.marcos.estik.domain.dto.user.UserUpdateActiveDTO;
 import com.marcos.estik.domain.dto.user.UserUpdateRoleDTO;
 import com.marcos.estik.service.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class UserController {
     private final UserService userService;
 
     @GetMapping
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<Page<UserSummaryDTO>> getUsers(Pageable pageable) {
         return ResponseEntity.ok(userService.getUsers(pageable));
     }
@@ -37,6 +44,10 @@ public class UserController {
     }
 
     @PutMapping("/{id}/role")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<UserSummaryDTO> updateUserRole(
         @PathVariable Long id,
         @RequestBody UserUpdateRoleDTO dto
@@ -45,6 +56,10 @@ public class UserController {
     }
 
     @PutMapping("/{id}/active")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_ADMIN</code> authority."
+    )
     public ResponseEntity<UserSummaryDTO> updateUserActiveStatus(
         @PathVariable Long id,
         @RequestBody UserUpdateActiveDTO dto

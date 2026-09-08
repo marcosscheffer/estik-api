@@ -20,16 +20,23 @@ import com.marcos.estik.domain.dto.departament.DepartamentResponseDTO;
 import com.marcos.estik.domain.dto.departament.DepartamentSummaryDTO;
 import com.marcos.estik.service.DepartamentService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/departaments")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class DepartamentController {
     private final DepartamentService departamentService;
 
     @PostMapping
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<DepartamentResponseDTO> createDepartament(
         @RequestBody @Valid DepartamentRequestDTO dto,
         UriComponentsBuilder uriBuilder
@@ -58,6 +65,10 @@ public class DepartamentController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<Void> deleteDepartament(
         @PathVariable Long id
     ) {
@@ -66,6 +77,10 @@ public class DepartamentController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<DepartamentResponseDTO> updateDepartament(
         @PathVariable Long id,
         @RequestBody @Valid DepartamentRequestDTO dto

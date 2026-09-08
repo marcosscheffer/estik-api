@@ -20,16 +20,23 @@ import com.marcos.estik.domain.dto.pc.PcRequestDTO;
 import com.marcos.estik.domain.dto.pc.PcResponseDTO;
 import com.marcos.estik.service.PcService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/pcs")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class PcController {
     private final PcService pcService;
 
     @GetMapping
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<Page<PcResponseDTO>> getPcs(
         Pageable pageable,
         @RequestParam(defaultValue = "") String q,
@@ -51,11 +58,19 @@ public class PcController {
     }    
 
     @GetMapping("/{id}")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<PcResponseDTO> getPc(@PathVariable Long id) {
         return ResponseEntity.ok(pcService.getPc(id));
     }
 
     @PostMapping
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<PcResponseDTO> createPc(
         UriComponentsBuilder uriBuilder,
         @RequestBody @Valid PcRequestDTO dto
@@ -71,6 +86,10 @@ public class PcController {
     }
 
     @PutMapping("/{id}")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<PcResponseDTO> updatePc(
         @PathVariable Long id,
         @RequestBody @Valid PcRequestDTO dto
@@ -80,6 +99,10 @@ public class PcController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<Void> deletePc(
         @PathVariable Long id
     ) {

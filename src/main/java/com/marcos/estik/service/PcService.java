@@ -8,6 +8,7 @@ import com.marcos.estik.domain.dto.departament.DepartamentSummaryDTO;
 import com.marcos.estik.domain.dto.pc.PcRequestDTO;
 import com.marcos.estik.domain.dto.pc.PcResponseDTO;
 import com.marcos.estik.domain.dto.pc.PcSummaryResponseDTO;
+import com.marcos.estik.domain.entity.Departament;
 import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.domain.entity.Pc;
 import com.marcos.estik.domain.entity.User;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class PcService {
     private final PcRepository pcRepository;
     private final FacilityService facilityService;
+    private final DepartamentService departamentService;
     private final UserService userService;
 
     private PcResponseDTO toDto(Pc pc) {
@@ -33,12 +35,11 @@ public class PcService {
                 pc.getStorageType(),
                 pc.getStorageCapacity(),
                 pc.getOs(),
-                facilityService.toDtoSummary(pc.getFacility()),
                 // Hardcoding to avoid redundancy
                 new DepartamentSummaryDTO(
-                    pc.getId(),
-                    pc.getName(),
-                    facilityService.toDtoSummary(pc.getFacility())
+                    pc.getDepartament().getId(),
+                    pc.getDepartament().getName(),
+                    facilityService.toDtoSummary(pc.getDepartament().getFacility())
                 )
             );
     }
@@ -94,12 +95,13 @@ public class PcService {
 
     public PcResponseDTO createPc(PcRequestDTO dto) {
         User assembler = userService.getUserById(dto.assemblerId());
-
+        Departament departament = departamentService.getDepartamentById(dto.departamentId());
         Facility facility = facilityService.getFacilityById(dto.facilityId());
 
         Pc pc = new Pc(dto);
         pc.setAssembler(assembler);
         pc.setFacility(facility);
+        pc.setDepartament(departament);
         pcRepository.save(pc);
         return toDto(pc);
     }
@@ -111,12 +113,13 @@ public class PcService {
                 () -> new EntityNotFoundException("PC not found")
             );
         Facility facility = facilityService.getFacilityById(dto.facilityId());
-        
+        Departament departament = departamentService.getDepartamentById(dto.departamentId());
         User assembler = userService.getUserById(dto.assemblerId());
         
         pc.setName(dto.name());
         pc.setFacility(facility);
         pc.setAssembler(assembler);
+        pc.setDepartament(departament);
         pc.setProcessor(dto.processor());
         pc.setOs(dto.os());
         pc.setMemory(dto.memory());

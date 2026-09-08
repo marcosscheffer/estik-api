@@ -20,16 +20,23 @@ import com.marcos.estik.domain.dto.item.ItemRequestDTO;
 import com.marcos.estik.domain.dto.item.ItemResponseDTO;
 import com.marcos.estik.service.ItemService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/items")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class ItemController {
     private final ItemService itemService;
 
     @GetMapping
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<Page<ItemResponseDTO>> getItems(
         @RequestParam(value = "q", defaultValue = "") String q,
         Pageable pageable
@@ -38,12 +45,20 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<ItemResponseDTO> getItemById(@PathVariable("id") Long id) {
         ItemResponseDTO item = itemService.getItem(id);
         return ResponseEntity.ok(item);
     }
 
     @PostMapping
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<ItemResponseDTO> createItem(
         @RequestBody @Valid ItemRequestDTO dto,
         UriComponentsBuilder uriBuilder
@@ -58,13 +73,22 @@ public class ItemController {
         return ResponseEntity.created(uri).body(item);
     }
 
+
     @DeleteMapping("/{id}")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<Void> deleteItem(@PathVariable("id") Long id) {
         itemService.deleteItem(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<ItemResponseDTO> updateItem(
         @PathVariable("id") Long id,
         @RequestBody @Valid ItemRequestDTO dto

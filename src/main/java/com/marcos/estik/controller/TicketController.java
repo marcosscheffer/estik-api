@@ -22,12 +22,15 @@ import com.marcos.estik.domain.dto.ticket.TicketUpdateStatusDTO;
 import com.marcos.estik.domain.entity.User;
 import com.marcos.estik.service.TicketService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/tickets")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearerAuth")
 public class TicketController {
     private final TicketService ticketService;
 
@@ -47,6 +50,10 @@ public class TicketController {
     }
 
     @GetMapping
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<Page<TicketResponseDTO>> getTickets(Pageable pageable) {
         return ResponseEntity.ok(ticketService.getTickets(pageable));
     }
@@ -75,6 +82,10 @@ public class TicketController {
     }
 
     @PutMapping("/{id}/status")
+    @Operation(
+        summary = "Retrieves system metrics",
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
+    )
     public ResponseEntity<TicketResponseDTO> updateTicketStatus(
         @PathVariable Long id,
         @RequestBody @Valid TicketUpdateStatusDTO dto

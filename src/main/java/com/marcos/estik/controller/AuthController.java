@@ -21,6 +21,7 @@ import com.marcos.estik.domain.entity.User;
 import com.marcos.estik.service.TokenService;
 import com.marcos.estik.service.UserService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -59,6 +60,7 @@ public class AuthController {
     }
 
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<UserSummaryDTO> updateUser(
         @PathVariable Long id,
         @RequestBody @Valid AuthDTO dto

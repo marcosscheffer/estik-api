@@ -25,19 +25,35 @@ import lombok.RequiredArgsConstructor;
 public class DepartamentService {
     private final DepartamentRepository departamentRepository;
     private final FacilityService facilityService;
-    private final PcService pcService;
-    private final ItemDepartamentService itemDepartamentService;
+    private final ItemService itemService;
     private final RecordService recordService;
+    private final UserService userService;
 
     public DepartamentResponseDTO toDto(Departament departament) {
         List<PcSummaryResponseDTO> pcs = departament.getPcs() != null
             ? departament.getPcs().stream()
-                .map(pc -> pcService.toDtoSummary(pc)).toList()
+                .map(pc -> new PcSummaryResponseDTO(
+                    pc.getId(), 
+                pc.getName(), 
+                userService.toDto(pc.getAssembler()),
+                pc.getProcessor(),
+                pc.getMemory(),
+                pc.getStorageType(),
+                pc.getStorageCapacity(),
+                pc.getOs()
+                )
+            ).toList()
                 : List.of();
         
         List<ItemDepartamentResponseDTO> items = departament.getItems() != null
             ? departament.getItems().stream()
-                .map(item -> itemDepartamentService.toDto(item)).toList()
+                .map(item -> new ItemDepartamentResponseDTO(
+                    item.getId(), 
+                    item.getQuantity(), 
+                    itemService.toDtoSummary(item.getItem()),
+                    toDtoSummary(item.getDepartament())
+                    )
+                ).toList()
                 : List.of();
         
         List<RecordSummaryResponseDTO> records = departament.getRecords() != null
