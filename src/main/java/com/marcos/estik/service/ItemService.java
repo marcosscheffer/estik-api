@@ -43,11 +43,15 @@ public class ItemService {
             .map(item -> toDto(item));
     }
 
-    public ItemResponseDTO getItemById(Long id) {
+    public ItemResponseDTO getItem(Long id) {
+        return toDto(getItemById(id));
+    }
+
+    public Item getItemById(Long id) {
         Item item = itemRepository.findById(id).orElseThrow(
             () -> new EntityNotFoundException("Item not found with id: " + id)
         );
-        return toDto(item);
+        return item;
     }
 
 

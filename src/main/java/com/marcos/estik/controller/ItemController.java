@@ -39,7 +39,7 @@ public class ItemController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ItemResponseDTO> getItemById(@PathVariable("id") Long id) {
-        ItemResponseDTO item = itemService.getItemById(id);
+        ItemResponseDTO item = itemService.getItem(id);
         return ResponseEntity.ok(item);
     }
 

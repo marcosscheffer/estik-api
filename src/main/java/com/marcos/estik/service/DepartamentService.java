@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.marcos.estik.domain.dto.departament.DepartamentRequestDTO;
 import com.marcos.estik.domain.dto.departament.DepartamentResponseDTO;
 import com.marcos.estik.domain.dto.departament.DepartamentSummaryDTO;
-import com.marcos.estik.domain.dto.item.ItemDepartamentResponseDTO;
+import com.marcos.estik.domain.dto.itemDepartament.ItemDepartamentResponseDTO;
 import com.marcos.estik.domain.dto.pc.PcSummaryResponseDTO;
 import com.marcos.estik.domain.dto.record.RecordSummaryResponseDTO;
 import com.marcos.estik.domain.entity.Departament;
