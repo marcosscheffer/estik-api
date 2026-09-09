@@ -2,6 +2,7 @@ package com.marcos.estik.domain.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,12 +40,12 @@ public class Departament {
     @JoinColumn(nullable = false, name = "facility_id")
     private Facility facility;
 
-    @OneToMany(mappedBy = "departament")
+    @OneToMany(mappedBy = "departament", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pc> pcs;
 
-    @OneToMany(mappedBy = "departament")
+    @OneToMany(mappedBy = "departament", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemDepartament> items;
 
-    @OneToMany(mappedBy = "departament")
+    @OneToMany(mappedBy = "departament", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Record> records;
 }

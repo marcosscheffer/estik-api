@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.marcos.estik.domain.dto.facility.FacilityRequestDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,10 +30,10 @@ public class Facility {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @OneToMany(mappedBy = "facility")
+    @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets;
 
-    @OneToMany(mappedBy = "facility")
+    @OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Departament> departaments;
 
     public Facility(FacilityRequestDTO dto) {

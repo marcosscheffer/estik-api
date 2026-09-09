@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import com.marcos.estik.domain.dto.ticket.TicketRequestDTO;
+import com.marcos.estik.domain.enums.PriorityEnum;
 import com.marcos.estik.domain.enums.StatusEnum;
 
 import jakarta.persistence.Column;
@@ -54,14 +55,17 @@ public class Ticket {
     @Column(nullable = false)
     private String description;
 
-    public Ticket(TicketRequestDTO dto, User user, Facility facility) {
+    @Column(nullable = false)
+    @Enumerated(value =  EnumType.STRING)
+    private PriorityEnum priority;
+
+    public Ticket(TicketRequestDTO dto) {
         this.status = StatusEnum.OPEN;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
         this.title = dto.title();
         this.description = dto.description();
-        this.user = user;
-        this.facility = facility;
+        this.priority = dto.priority();
     }
     
 }

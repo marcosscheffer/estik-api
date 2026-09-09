@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
 import com.marcos.estik.domain.dto.user.UserSummaryDTO;
+import com.marcos.estik.domain.enums.PriorityEnum;
 import com.marcos.estik.domain.enums.StatusEnum;
 
 public record TicketResponseDTO(
@@ -14,7 +15,8 @@ public record TicketResponseDTO(
     UserSummaryDTO user,
     FacilitySummaryResponseDTO facility,
     LocalDateTime createdAt,
-    LocalDateTime updatedAt
+    LocalDateTime updatedAt,
+    PriorityEnum priority
 ) {
     
 }

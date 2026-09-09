@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -20,6 +21,7 @@ import com.marcos.estik.domain.dto.ticket.TicketRequestDTO;
 import com.marcos.estik.domain.dto.ticket.TicketResponseDTO;
 import com.marcos.estik.domain.dto.ticket.TicketUpdateStatusDTO;
 import com.marcos.estik.domain.entity.User;
+import com.marcos.estik.domain.enums.PriorityEnum;
 import com.marcos.estik.service.TicketService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,8 +56,12 @@ public class TicketController {
         summary = "Retrieves system metrics",
         description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
     )
-    public ResponseEntity<Page<TicketResponseDTO>> getTickets(Pageable pageable) {
-        return ResponseEntity.ok(ticketService.getTickets(pageable));
+    public ResponseEntity<Page<TicketResponseDTO>> getTickets(
+        @RequestParam(name = "q", defaultValue = "") String q,
+        @RequestParam(name = "priority", required = false) PriorityEnum priority,
+        Pageable pageable
+    ) {
+        return ResponseEntity.ok(ticketService.getTickets(priority, q, pageable));
     }
 
     @GetMapping("/{id}")

@@ -58,16 +58,10 @@ public class User implements UserDetails{
          if (this.role == RoleEnum.SUPER) {
             return List.of(
                 new SimpleGrantedAuthority("ROLE_SUPER"),
-                new SimpleGrantedAuthority("ROLE_ADMIN"),
                 new SimpleGrantedAuthority("ROLE_USER")
             );
-        } else if (this.role == RoleEnum.ADMIN) {
-            return List.of(
-                new SimpleGrantedAuthority("ROLE_ADMIN"),
-                new SimpleGrantedAuthority("ROLE_USER")
-            );
-        }
-
+        } 
+        
         return List.of(new SimpleGrantedAuthority(this.role.getRole()));
     }
 

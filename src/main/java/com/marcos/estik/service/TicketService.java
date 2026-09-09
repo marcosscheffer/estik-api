@@ -13,6 +13,7 @@ import com.marcos.estik.domain.dto.user.UserSummaryDTO;
 import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.domain.entity.Ticket;
 import com.marcos.estik.domain.entity.User;
+import com.marcos.estik.domain.enums.PriorityEnum;
 import com.marcos.estik.domain.enums.StatusEnum;
 import com.marcos.estik.repository.TicketRepository;
 
@@ -43,7 +44,8 @@ public class TicketService {
                 ticket.getFacility().getCode()
             ),
             ticket.getCreatedAt(),
-            ticket.getUpdatedAt()
+            ticket.getUpdatedAt(),
+            ticket.getPriority()
         );
     }
 
@@ -56,13 +58,24 @@ public class TicketService {
     public TicketResponseDTO createTicket(TicketRequestDTO dto, User principal) {
         User  user = userService.getUserById(principal.getId());
         Facility facility = facilityService.getFacilityById(dto.facilityId());
-        Ticket ticket = new Ticket(dto, user, facility);
+        Ticket ticket = new Ticket(dto);
+        ticket.setUser(user);
+        ticket.setFacility(facility);
         ticketRepository.save(ticket);
         return toDto(ticket);
     }
 
-    public Page<TicketResponseDTO> getTickets(Pageable pageable) {
-        return ticketRepository.findAll(pageable).map(ticket -> toDto(ticket));
+    public Page<TicketResponseDTO> getTickets(PriorityEnum priority, String q, Pageable pageable) {
+        if(priority != null) {
+            return ticketRepository.findByPriorityAndTitleContainingIgnoreCase(
+                priority, 
+                q, 
+                pageable
+            )
+            .map(ticket -> toDto(ticket));
+        }
+        return ticketRepository.findByTitleContainingIgnoreCase(q, pageable)
+            .map(ticket -> toDto(ticket));
     }
 
     public TicketResponseDTO getTicket(Long id) {
@@ -80,6 +93,7 @@ public class TicketService {
         ticket.setDescription(dto.description());
         ticket.setFacility(facility);
         ticket.setUpdatedAt(LocalDateTime.now());
+        ticket.setPriority(dto.priority());
         ticketRepository.save(ticket);
         return toDto(ticket);
     }

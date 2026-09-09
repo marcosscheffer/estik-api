@@ -21,12 +21,11 @@ public class ItemService {
 
     private ItemResponseDTO toDto(Item item) {
         return new ItemResponseDTO(
-                item.getId(), 
-                item.getName(), 
-                item.getDescription(),
-                item.getCode(), 
-                item.getQuantity()
-            );
+            item.getId(), 
+            item.getName(), 
+            item.getDescription(),
+            item.getCode()
+        );
     }
 
     public ItemSummaryResponseDTO toDtoSummary(Item item) {
@@ -73,7 +72,6 @@ public class ItemService {
         item.setName(dto.name());
         item.setDescription(dto.description());
         item.setCode(dto.code());
-        item.setQuantity(dto.quantity());
         itemRepository.save(item);
         return toDto(item);
     }
