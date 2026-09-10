@@ -44,6 +44,7 @@ public class ItemDepartamentService {
         Item item = itemService.getItemById(dto.itemId());
         ItemDepartament itemDepartament = new ItemDepartament();
 
+        
         itemDepartament.setQuantity(dto.quantity());
         itemDepartament.setItem(item);
         itemDepartament.setDepartament(departament);

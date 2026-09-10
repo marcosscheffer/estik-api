@@ -13,6 +13,7 @@ import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
 import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.repository.FacilityRepository;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -58,6 +59,9 @@ public class FacilityService {
     }
 
     public FacilityResponseDTO createFacility(FacilityRequestDTO dto) {
+        if (facilityRepository.existsByCodeContainingIgnoreCase(dto.code())) {
+            throw new EntityExistsException("Code already exists");
+        }
         Facility facility = new Facility(dto);
         facilityRepository.save(facility);
         return toDto(facility);

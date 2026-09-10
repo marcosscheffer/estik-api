@@ -34,9 +34,6 @@ public class RecordDepartament {
     @Column(nullable = false)
     private RecordEnum direction;
 
-    @ManyToOne
-    private Item item;
-
     @CreatedDate
     private LocalDateTime createdAt;
 

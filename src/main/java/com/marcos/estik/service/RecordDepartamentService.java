@@ -2,11 +2,9 @@ package com.marcos.estik.service;
 
 import org.springframework.stereotype.Service;
 
-import com.marcos.estik.domain.dto.item.ItemSummaryResponseDTO;
 import com.marcos.estik.domain.dto.pc.PcSummaryResponseDTO;
 import com.marcos.estik.domain.dto.record.RecordDepartamentResponseDTO;
 import com.marcos.estik.domain.entity.Departament;
-import com.marcos.estik.domain.entity.Item;
 import com.marcos.estik.domain.entity.Pc;
 import com.marcos.estik.domain.entity.RecordDepartament;
 import com.marcos.estik.domain.enums.RecordEnum;
@@ -24,15 +22,7 @@ public class RecordDepartamentService {
         return new RecordDepartamentResponseDTO(
             recordDepartament.getId(), 
             recordDepartament.getCreatedAt(), 
-            recordDepartament.getDirection(), 
-            (recordDepartament.getItem() == null) 
-            ? null
-            :  new ItemSummaryResponseDTO(
-                recordDepartament.getItem().getId(),
-                recordDepartament.getItem().getName(),
-                recordDepartament.getItem().getDescription(),
-                recordDepartament.getItem().getCode()
-            ),
+            recordDepartament.getDirection(),
             recordDepartament.getQuantity(),
             (recordDepartament.getPc() == null)
             ? null
@@ -56,14 +46,5 @@ public class RecordDepartamentService {
         recordDepartamentRepository.save(recordDepartament);
 
         return toDto(recordDepartament);
-    }
-
-    public RecordDepartamentResponseDTO createRecordItem(Departament departament, Item item, RecordEnum direction) {
-        RecordDepartament recordDepartament = new RecordDepartament(1, direction);
-        recordDepartament.setDepartament(departament);
-        recordDepartament.setItem(item);
-        recordDepartamentRepository.save(recordDepartament);
-
-        return  toDto(recordDepartament);
-    }      
+    } 
 }

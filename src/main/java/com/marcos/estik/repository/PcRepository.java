@@ -10,5 +10,6 @@ public interface PcRepository extends JpaRepository<Pc, Long> {
     Page<Pc> findByAssemblerId(Long assemblerId, Pageable pageable);
     Page<Pc> findByName(String q, Pageable pageable);
     Page<Pc> findByNameAndAssemblerId(String q, Long assemblerId, Pageable pageable);
+    boolean existsByNameContainingIgnoreCase(String name);
     
 }

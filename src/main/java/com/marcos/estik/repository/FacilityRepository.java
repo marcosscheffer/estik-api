@@ -8,4 +8,5 @@ import com.marcos.estik.domain.entity.Facility;
 
 public interface FacilityRepository extends JpaRepository<Facility, Long> {
     Page<Facility> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    Boolean existsByCodeContainingIgnoreCase(String code);
 }

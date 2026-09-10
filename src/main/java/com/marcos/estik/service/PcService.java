@@ -15,6 +15,7 @@ import com.marcos.estik.domain.entity.User;
 import com.marcos.estik.domain.enums.RecordEnum;
 import com.marcos.estik.repository.PcRepository;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -97,6 +98,10 @@ public class PcService {
     }
 
     public PcResponseDTO createPc(PcRequestDTO dto) {
+        if (pcRepository.existsByNameContainingIgnoreCase(dto.name())) {
+            throw new EntityExistsException("Name already exists");
+        }
+
         User assembler = userService.getUserById(dto.assemblerId());
         Departament departament = departamentService.getDepartamentById(dto.departamentId());
         Facility facility = facilityService.getFacilityById(dto.facilityId());

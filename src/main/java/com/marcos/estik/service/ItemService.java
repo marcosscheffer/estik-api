@@ -10,6 +10,7 @@ import com.marcos.estik.domain.dto.item.ItemSummaryResponseDTO;
 import com.marcos.estik.domain.entity.Item;
 import com.marcos.estik.repository.ItemRepository;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -55,6 +56,10 @@ public class ItemService {
 
 
     public ItemResponseDTO createItem(ItemRequestDTO dto) {
+        if (itemRepository.existsByCodeContainingIgnoreCase(dto.code())) {
+            throw new EntityExistsException("Code already exists");
+        }
+
         Item item = new Item(dto);
         itemRepository.save(item);
 

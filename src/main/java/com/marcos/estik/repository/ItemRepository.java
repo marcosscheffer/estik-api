@@ -8,4 +8,6 @@ import com.marcos.estik.domain.entity.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
     Page<Item> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
+    boolean existsByCodeContainingIgnoreCase(String code);
 }
