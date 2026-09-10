@@ -1,9 +1,12 @@
 package com.marcos.estik.domain.entity;
 
+import java.util.List;
+
 import com.marcos.estik.domain.dto.pc.PcRequestDTO;
 import com.marcos.estik.domain.enums.OsEnum;
 import com.marcos.estik.domain.enums.StorageEnum;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,6 +59,9 @@ public class Pc {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Departament departament;
+
+    @OneToMany(mappedBy = "pc", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RecordDepartament> records;
 
     public Pc(PcRequestDTO dto) {
         name = dto.name();

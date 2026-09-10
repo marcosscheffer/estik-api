@@ -5,7 +5,7 @@ import java.util.List;
 import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
 import com.marcos.estik.domain.dto.itemDepartament.ItemDepartamentResponseDTO;
 import com.marcos.estik.domain.dto.pc.PcSummaryResponseDTO;
-import com.marcos.estik.domain.dto.record.RecordSummaryResponseDTO;
+import com.marcos.estik.domain.dto.record.RecordDepartamentResponseDTO;
 
 public record DepartamentResponseDTO(
     Long id,
@@ -13,7 +13,7 @@ public record DepartamentResponseDTO(
     FacilitySummaryResponseDTO facility,
     List<PcSummaryResponseDTO> pcs,
     List<ItemDepartamentResponseDTO> items,
-    List<RecordSummaryResponseDTO> records
+    List<RecordDepartamentResponseDTO> records
 ) {
     
 }

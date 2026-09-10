@@ -7,5 +7,7 @@ import com.marcos.estik.domain.entity.Departament;
 public interface DepartamentRepository extends JpaRepository<Departament, Long> {
 
     boolean existsByFacilityIdAndName(Long facilityId, String name);
+
+    Departament findByNameContainingIgnoreCase(String name);
     
 }

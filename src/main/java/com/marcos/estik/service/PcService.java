@@ -12,6 +12,7 @@ import com.marcos.estik.domain.entity.Departament;
 import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.domain.entity.Pc;
 import com.marcos.estik.domain.entity.User;
+import com.marcos.estik.domain.enums.RecordEnum;
 import com.marcos.estik.repository.PcRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -24,6 +25,8 @@ public class PcService {
     private final FacilityService facilityService;
     private final DepartamentService departamentService;
     private final UserService userService;
+    private final RecordDepartamentService recordDepartamentService;
+
 
     private PcResponseDTO toDto(Pc pc) {
         return new PcResponseDTO (
@@ -102,7 +105,10 @@ public class PcService {
         pc.setAssembler(assembler);
         pc.setFacility(facility);
         pc.setDepartament(departament);
-        pcRepository.save(pc);
+        pcRepository.saveAndFlush(pc);
+
+        recordDepartamentService.createRecordPc(departament, pc, RecordEnum.SENT);
+
         return toDto(pc);
     }
 
@@ -112,10 +118,16 @@ public class PcService {
             .orElseThrow(
                 () -> new EntityNotFoundException("PC not found")
             );
+
         Facility facility = facilityService.getFacilityById(dto.facilityId());
         Departament departament = departamentService.getDepartamentById(dto.departamentId());
         User assembler = userService.getUserById(dto.assemblerId());
         
+        if (!pc.getDepartament().getId().equals(dto.departamentId())) {
+            recordDepartamentService.createRecordPc(pc.getDepartament(), pc, RecordEnum.RECEIVED);
+            recordDepartamentService.createRecordPc(departament, pc, RecordEnum.SENT);
+        }
+
         pc.setName(dto.name());
         pc.setFacility(facility);
         pc.setAssembler(assembler);

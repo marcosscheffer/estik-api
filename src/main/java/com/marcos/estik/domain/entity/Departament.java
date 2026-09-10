@@ -47,5 +47,5 @@ public class Departament {
     private List<ItemDepartament> items;
 
     @OneToMany(mappedBy = "departament", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Record> records;
+    private List<RecordDepartament> records;
 }

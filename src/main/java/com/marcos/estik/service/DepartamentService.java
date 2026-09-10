@@ -12,7 +12,7 @@ import com.marcos.estik.domain.dto.departament.DepartamentResponseDTO;
 import com.marcos.estik.domain.dto.departament.DepartamentSummaryDTO;
 import com.marcos.estik.domain.dto.itemDepartament.ItemDepartamentResponseDTO;
 import com.marcos.estik.domain.dto.pc.PcSummaryResponseDTO;
-import com.marcos.estik.domain.dto.record.RecordSummaryResponseDTO;
+import com.marcos.estik.domain.dto.record.RecordDepartamentResponseDTO;
 import com.marcos.estik.domain.entity.Departament;
 import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.repository.DepartamentRepository;
@@ -26,8 +26,8 @@ public class DepartamentService {
     private final DepartamentRepository departamentRepository;
     private final FacilityService facilityService;
     private final ItemService itemService;
-    private final RecordService recordService;
     private final UserService userService;
+    private final RecordDepartamentService recordDepartamentService;
 
     public DepartamentResponseDTO toDto(Departament departament) {
         List<PcSummaryResponseDTO> pcs = departament.getPcs() != null
@@ -42,24 +42,25 @@ public class DepartamentService {
                 pc.getStorageCapacity(),
                 pc.getOs()
                 )
-            ).toList()
+                ).toList()
                 : List.of();
         
         List<ItemDepartamentResponseDTO> items = departament.getItems() != null
             ? departament.getItems().stream()
                 .map(item -> new ItemDepartamentResponseDTO(
                     item.getId(), 
-                    item.getQuantity(), 
+                    item.getQuantity(),
                     itemService.toDtoSummary(item.getItem()),
                     toDtoSummary(item.getDepartament())
                     )
                 ).toList()
                 : List.of();
-        
-        List<RecordSummaryResponseDTO> records = departament.getRecords() != null
+            
+        List<RecordDepartamentResponseDTO> recordDepartaments = departament.getRecords() != null
             ? departament.getRecords().stream()
-                .map(recordItem -> recordService.toDto(recordItem)).toList()
-                : List.of();
+                .map(recordDepartament -> recordDepartamentService.toDto(recordDepartament))
+                .toList()
+            : List.of();
 
         return new DepartamentResponseDTO(
             departament.getId(),
@@ -67,8 +68,12 @@ public class DepartamentService {
             facilityService.toDtoSummary(departament.getFacility()),
             pcs,
             items,
-            records
+            recordDepartaments
         );
+    }
+
+    public Departament getDepartamentByName(String name) {
+        return departamentRepository.findByNameContainingIgnoreCase(name);
     }
 
     public DepartamentSummaryDTO toDtoSummary(Departament departament) {

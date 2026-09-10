@@ -15,13 +15,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "records")
 @Getter
 @Setter
-public class Record {
+@NoArgsConstructor 
+public class RecordDepartament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,7 +35,6 @@ public class Record {
     private RecordEnum direction;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
     private Item item;
 
     @CreatedDate
@@ -42,4 +43,17 @@ public class Record {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Departament departament;
+
+    @ManyToOne
+    private Pc pc;
+
+    public RecordDepartament(
+        Integer quantity, 
+        RecordEnum direction
+    ) {
+        this.quantity = quantity;
+        this.direction = direction;
+        this.createdAt = LocalDateTime.now();
+
+    }
 }
