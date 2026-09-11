@@ -72,10 +72,6 @@ public class DepartamentService {
         );
     }
 
-    public Departament getDepartamentByName(String name) {
-        return departamentRepository.findByNameContainingIgnoreCase(name);
-    }
-
     public DepartamentSummaryDTO toDtoSummary(Departament departament) {
         return new DepartamentSummaryDTO(
             departament.getId(),
@@ -110,8 +106,8 @@ public class DepartamentService {
         return toDto(departament);
     }
 
-    public Page<DepartamentSummaryDTO> getDepartaments(Pageable pageable) {
-        return departamentRepository.findAll(pageable)
+    public Page<DepartamentSummaryDTO> getDepartaments(String q, Pageable pageable) {
+        return departamentRepository.findByNameContainingIgnoreCase(q, pageable)
             .map(departament -> toDtoSummary(departament));
     }
 

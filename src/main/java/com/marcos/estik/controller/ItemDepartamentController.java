@@ -57,7 +57,7 @@ public class ItemDepartamentController {
         description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
     )
     public ResponseEntity<Page<ItemDepartamentResponseDTO>> getAllItemDepartament(
-        @RequestParam(defaultValue = "", name = "q") String q,
+        @RequestParam(name = "q", defaultValue = "") String q,
         Pageable pageable
     ) {
         return ResponseEntity.ok(itemDepartamentService.getAllItemDepartament(q, pageable));

@@ -9,5 +9,7 @@ import com.marcos.estik.domain.entity.ItemDepartament;
 public interface ItemDepartamentRepository extends JpaRepository<ItemDepartament, Long> {
 
     Page<ItemDepartament> findByitemNameContainingIgnoreCase(String q, Pageable pageable);
+
+    boolean existsByItemIdAndDepartamentId(Long itemId, Long departamentId);
     
 }

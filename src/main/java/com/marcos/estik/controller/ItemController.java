@@ -38,10 +38,10 @@ public class ItemController {
         description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
     )
     public ResponseEntity<Page<ItemResponseDTO>> getItems(
-        @RequestParam(value = "q", defaultValue = "") String q,
+        @RequestParam(name = "q", defaultValue = "") String q,
         Pageable pageable
     ) {
-        return ResponseEntity.ok(itemService.getItems(pageable, q));
+        return ResponseEntity.ok(itemService.getItems(q, pageable));
     }
 
     @GetMapping("/{id}")

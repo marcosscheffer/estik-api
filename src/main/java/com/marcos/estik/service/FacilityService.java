@@ -10,6 +10,7 @@ import com.marcos.estik.domain.dto.departament.DepartamentSummaryDTO;
 import com.marcos.estik.domain.dto.facility.FacilityRequestDTO;
 import com.marcos.estik.domain.dto.facility.FacilityResponseDTO;
 import com.marcos.estik.domain.dto.facility.FacilitySummaryResponseDTO;
+import com.marcos.estik.domain.dto.ticket.TicketSummaryResponseDTO;
 import com.marcos.estik.domain.entity.Facility;
 import com.marcos.estik.repository.FacilityRepository;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FacilityService {
     private final FacilityRepository facilityRepository;
+    private final UserService userService;
 
     public FacilityResponseDTO toDto(Facility facility) {
         List<DepartamentSummaryDTO> departaments = (facility.getDepartaments() != null) ? 
@@ -32,12 +34,26 @@ public class FacilityService {
                     toDtoSummary(departament.getFacility())
                 )).toList() 
                 : List.of();
+        List<TicketSummaryResponseDTO> tickets = (facility.getTickets() != null) ?
+            facility.getTickets().stream()
+                .map(ticket -> new TicketSummaryResponseDTO(
+                    ticket.getId(),
+                    ticket.getStatus(),
+                    ticket.getTitle(),
+                    userService.toDto(ticket.getUser()),
+                    ticket.getCreatedAt(),
+                    ticket.getUpdatedAt(),
+                    ticket.getPriority()
+                    )
+                ).toList()
+            : null;
                 
         return new FacilityResponseDTO(
             facility.getId(),
             facility.getName(),
             facility.getCode(),
-            departaments
+            departaments,
+            tickets
         );
     }
 

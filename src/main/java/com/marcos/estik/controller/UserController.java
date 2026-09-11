@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marcos.estik.domain.dto.user.UserDTO;
@@ -32,8 +33,11 @@ public class UserController {
         summary = "Retrieves system metrics",
         description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
     )
-    public ResponseEntity<Page<UserSummaryDTO>> getUsers(Pageable pageable) {
-        return ResponseEntity.ok(userService.getUsers(pageable));
+    public ResponseEntity<Page<UserSummaryDTO>> getUsers(
+        Pageable pageable,
+        @RequestParam(name = "q", defaultValue = "") String q
+    ) {
+        return ResponseEntity.ok(userService.getUsers(q, pageable));
     }
 
     @GetMapping("/{id}")
@@ -58,7 +62,7 @@ public class UserController {
     @PutMapping("/{id}/active")
     @Operation(
         summary = "Retrieves system metrics",
-        description = "<b>Restricted access:</b> Requires the <code>ROLE_ADMIN</code> authority."
+        description = "<b>Restricted access:</b> Requires the <code>ROLE_SUPER</code> authority."
     )
     public ResponseEntity<UserSummaryDTO> updateUserActiveStatus(
         @PathVariable Long id,

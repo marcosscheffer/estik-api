@@ -65,8 +65,8 @@ public class UserService {
         return toDto(user);
     }
 
-    public Page<UserSummaryDTO> getUsers(Pageable pageable) {
-        return userRepository.findAll(pageable)
+    public Page<UserSummaryDTO> getUsers(String q, Pageable pageable) {
+        return userRepository.findByUsernameContainingIgnoreCase(q, pageable)
             .map(user -> toDto(user));
     }
 

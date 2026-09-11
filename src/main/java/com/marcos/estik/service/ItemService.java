@@ -38,7 +38,7 @@ public class ItemService {
         );
     }
 
-    public Page<ItemResponseDTO> getItems(Pageable pageable, String q) {
+    public Page<ItemResponseDTO> getItems(String q, Pageable pageable) {
         return itemRepository.findByNameContainingIgnoreCase(q, pageable)
             .map(item -> toDto(item));
     }

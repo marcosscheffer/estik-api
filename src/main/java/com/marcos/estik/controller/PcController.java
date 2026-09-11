@@ -39,8 +39,8 @@ public class PcController {
     )
     public ResponseEntity<Page<PcResponseDTO>> getPcs(
         Pageable pageable,
-        @RequestParam(defaultValue = "") String q,
-        @RequestParam(defaultValue = "") String assembler
+        @RequestParam(name = "q",defaultValue = "") String q,
+        @RequestParam(name = "assembler",defaultValue = "") String assembler
     ) {
         
         if (!assembler.isBlank()) {

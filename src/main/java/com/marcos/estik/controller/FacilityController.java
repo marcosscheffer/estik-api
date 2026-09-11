@@ -36,7 +36,7 @@ public class FacilityController {
     @GetMapping
     public ResponseEntity<Page<FacilitySummaryResponseDTO>> getFacilities(
         Pageable pageable,
-        @RequestParam(defaultValue = "") String q
+        @RequestParam(name = "q", defaultValue = "") String q
     ) {
         return ResponseEntity.ok(facilityService.getFacilities(q, pageable));
     }

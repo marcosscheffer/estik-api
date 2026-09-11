@@ -10,6 +10,7 @@ import com.marcos.estik.domain.entity.Departament;
 import com.marcos.estik.domain.entity.ItemDepartament;
 import com.marcos.estik.repository.ItemDepartamentRepository;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 
 import com.marcos.estik.domain.entity.Item;
@@ -40,6 +41,11 @@ public class ItemDepartamentService {
     }
 
     public ItemDepartamentResponseDTO createItemDepartament(ItemDepartamentRequestDTO dto) {
+        if(itemDepartamentRepository.existsByItemIdAndDepartamentId(
+            dto.itemId(), dto.departamentId())) {
+                throw new EntityExistsException("Item already exists in departament");
+        }
+
         Departament departament = departamentService.getDepartamentById(dto.departamentId());
         Item item = itemService.getItemById(dto.itemId());
         ItemDepartament itemDepartament = new ItemDepartament();
