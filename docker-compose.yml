@@ -17,6 +17,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - backend-net
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -31,6 +33,8 @@ services:
         condition: service_healthy
     volumes:
       - pgadmindata:/var/lib/pgadmin
+    networks:
+      - backend-net
 
   app-api:
     build: .
@@ -45,8 +49,10 @@ services:
       SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       SECRET_KEY: ${SECRET_KEY}
-      MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://tempo:9411/api/v2/spans
-      MANAGEMENT_TRACING_SAMPLING_PROBABILITY: 1.0
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD}
+    networks:
+      - backend-net
 
   postgres-backup:
     build:
@@ -65,16 +71,24 @@ services:
     volumes:
       - ./backups:/backups
     restart: unless-stopped
+    networks:
+      - backend-net
 
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
+    command:
+    - '--config.file=/etc/prometheus/prometheus.yml'
+    - '--storage.tsdb.retention.time=15d'
     ports:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheusdata:/prometheus
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - backend-net
 
   grafana:
     image: grafana/grafana:latest
@@ -86,8 +100,15 @@ services:
       - grafanadata:/var/lib/grafana
     depends_on:
       - prometheus
+    networks:
+      - backend-net
 
 volumes:
   pgdata:
   pgadmindata:
   grafanadata:
+  prometheusdata:
+  
+networks:
+  backend-net:
+    driver: bridge

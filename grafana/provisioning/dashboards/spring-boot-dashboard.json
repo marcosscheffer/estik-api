@@ -4,16 +4,18 @@
   "metadata": {
     "name": "spring_boot_21",
     "namespace": "default",
-    "uid": "1ded9f40-d0f9-46bc-99c3-b79be0ceffee",
-    "resourceVersion": "1789647213221016",
-    "generation": 1,
-    "creationTimestamp": "2026-09-17T12:13:33Z",
+    "uid": "eb4949db-716f-41a8-b7f9-459b9067de26",
+    "resourceVersion": "1789649102094014",
+    "generation": 2,
+    "creationTimestamp": "2026-09-17T12:20:36Z",
     "labels": {
-      "grafana.app/deprecatedInternalID": "1881349099368448"
+      "grafana.app/deprecatedInternalID": "1883125761015808"
     },
     "annotations": {
-      "grafana.app/createdBy": "user:bfyixuxw96z28e",
-      "grafana.app/saved-from-ui": "Grafana v13.2.2 (1bea008f7e)"
+      "grafana.app/createdBy": "access-policy:service",
+      "grafana.app/saved-from-ui": "Grafana v13.2.2 (1bea008f7e)",
+      "grafana.app/updatedBy": "user:afyiyk6ogkge8b",
+      "grafana.app/updatedTimestamp": "2026-09-17T12:45:02Z"
     }
   },
   "spec": {
